@@ -1,0 +1,1 @@
+export const masterStoreLogin="MASTER_STORE_LOGIN";

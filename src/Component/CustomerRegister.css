@@ -1,0 +1,60 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+
+  }
+  .Dropdown-root{
+    text-align: left !important;
+  }
+form#customer-rview{
+    max-width: 600px !important;
+}
+.Dropdown-control{
+    text-align: left;
+}
+.Dropdown-menu{
+    text-align: left;
+}
+.contentWithWrapperbtn #writeReview-btn{
+    background-color:#cc0033 !important;
+}
+.contentWithWrapperbtn {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+button#writeReview-btn {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 5px 10px !important;
+}
+input#inlineCheckbox1 {
+    padding: 9px !important;
+}
+.main-form-wrapper {
+    width: 650px;
+    margin: auto;
+    background-color: #fff;
+}
+button#writeReview-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+}
+
+ 
+  input#inlineCheckbox1 {
+    padding: 7px;
+}
+.Dropdown-menu {
+    height: 161px;
+    overflow-x: scroll;
+}
+.Dropdown-control {
+    text-align: left !important;
+}
+
