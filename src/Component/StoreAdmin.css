@@ -4,8 +4,8 @@
   font-family: 'Poppins', sans-serif;
 }
 
-body {
-  background-image: url('/public//img/background-1.jpg');
+.store-admin {
+  background-image: url('/public//img/background-1.jpg') !important;
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -143,7 +143,6 @@ img.google {
 }
 
 .login h2 {
-
   color: #031329;
   font-size: 28px;
 }
@@ -192,8 +191,6 @@ img.google {
   text-decoration: underline;
 }
 
-.firstback-img {}
-
 .login input[type="text"]:focus {
   border: 1.5px dotted #cc0033 !important;
 
@@ -205,22 +202,64 @@ img.google {
 }
 
 @media only screen and (max-width: 768px) {
-  body {
-    background-image: url('/public//img/WhatsApp Image 2023-11-01 at 12.30.47 PM.jpeg') !important;
+  .store-admin {
+    background-image: url('/public//img/back-second-page.jpg') !important;
     background-size: cover;
     background-repeat: no-repeat;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
   }
 
-  .login {
+  .login storeAdmin {
     background-color: transparent !important;
   }
+
   .login input[type=submit] {
     margin: 1px 0px !important;
+    background-color: #cc0033;
   }
+}
+
+input[type="text"] {
+  border: 1px solid #cc0033!important;
+}
+
+.Dropdown-control {
+  padding: 12px 15px;
+  border: 1px solid #cc0033!important;
+}
+
+input#inlineCheckbox1 {
+  padding: 7px !important;
+}
+
+input[type="password"] {
+  border: 1px solid #cc0033!important;
+}
+
+.orLoginwithCredn {
+  background: rgb(204,0,51);
+  background: linear-gradient(90deg, rgba(204,0,51,1) 2%, rgba(172,21,62,1) 53%);
+  width: 450px;
+  height: 100px !important;
+  margin: auto;
+  display: flex;
+  margin-bottom: -20px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+.logo_for_login {
+  background-color: #9BACE6;
+  width: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  height: 68px;
+  font-size: 34px;
+  border-radius: 50px;
+  color: #fff;
+}
+.navbar navbar-expand-lg navbar-light bg-light{
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px !important;
+
 }

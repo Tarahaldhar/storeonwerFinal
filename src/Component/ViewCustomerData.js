@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { CSVLink } from 'react-csv';
-
 import ReactPaginate from 'react-paginate';
+import './ViewCustomer.css';
 
 import axios from 'axios';
 import { current } from '@reduxjs/toolkit';
@@ -58,72 +57,88 @@ const ViewCustomerData = () => {
         console.log('e', e, index);
         index === accordian ? setAccordian(null) : setAccordian(index)
     }
-
-    
     return (
         <div>
-            {/* --------------------Navigation bar start------------------------------ */}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <div className='logo-admin' >
-                        <Link to="/">
-                            <img style={{ width: '60px', height: '60px' }} className='logothe-wise-owl' src='img/lglogo.png' />
-                        </Link>
-                    </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            {/* <li class="nav-item">
+            <div className='view-customer-page'>
+                {/* --------------------Navigation bar start------------------------------ */}
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <div className='logo-admin' >
+                            <Link to="/">
+                                <img style={{ width: '60px', height: '60px' }} className='logothe-wise-owl' src='img/lglogo.png' />
+                            </Link>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                {/* <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li> */}
 
-                        </ul>
-                        <span className="navbar-text">
-                            <Link to={'/customerjorney'}>
-                                <i style={{ color: '#cc0033' }} className="fa-solid fa-backward" navigate='/'></i>
-                            </Link>
-                        </span>
+                            </ul>
+                            <span className="navbar-text">
+                                <Link to={'/customerjorney'}>
+                                    <i style={{ color: '#cc0033' }} className="fa-solid fa-backward" navigate='/'></i>
+                                </Link>
+                            </span>
+                        </div>
                     </div>
-                </div>
-            </nav>
-            {/* -----------------------------Navigation bar end------------------------ */}
+                </nav>
+                {/* -----------------------------Navigation bar end------------------------ */}
 
-            <table className="table" style={{ border: '1px solid #ccc' }}>
-                <thead style={{ backgroundColor: '#cc0033', color: '#fff' }}>
-                    <tr>
-                        <th scope="col">Total Customer</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Sales Person Name</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <div className='all_customers'>
+                    <div className='singleCustomer parentHeadCustomer' >
+                        <div style={{ textAlign: 'center', flex: '1' }} className='customerHead'>Customer</div>
+                        <div style={{ textAlign: 'center', flex: '1' }} className='number-customer'>Number Of Customers</div>
+                    </div>
                     {storeData?.map((val, index) => (
 
-                        <>
-                            <div onClick={(e) => handleUserData(e, index)}>
-                                {`${val?.salesperson_name} `}
-                                <div className='count-customer'>
-                                    {`${val?.customer_count}`}
+                        <div >
+                            <div >
+
+                                <div className='singleCustomer'  >
+                                    <div style={{ textAlign: 'center', flex: '1' }}> {val?.salesperson_name}</div>
+                                    <div style={{ textAlign: 'center', flex: '1' }} className='customerCount' onClick={(e) => handleUserData(e, index)}> {val?.customer_count}</div>
+
                                 </div>
                             </div>
+                            {index === accordian &&
+                                <table className="table" style={{ border: '1px solid #ccc', marginBottom: '40px', marginTop: '40px' }}>
+                                    <thead style={{ backgroundColor: '#cc0033', color: '#fff' }}>
+                                        <tr>
+                                            <th scope="col">Id</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Phone Number</th>
+                                            <th scope="col">Sales Person Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {CustData?.map((val) => (
 
-                            {index === accordian && CustData?.map((val) => (
+                                            <tr>
+                                                <th scope="row">{val.id}</th>
+                                                <td>{val?.name}</td>
+                                                <td>{val?.email}</td>
+                                                <td>{val?.phone_number}</td>
+                                                <td>{val?.salesperson_name}</td>
+                                            </tr>
+                                        ))
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
 
-                                <tr>
-                                    <th scope="row">{val.id}</th>
-                                    <td>{val?.name}</td>
-                                    <td>{val?.email}</td>
-                                    <td>{val?.phone_number}</td>
-                                    <td>{val?.salesperson_name}</td>
-                                </tr>
-                            ))}
-                        </>
                     ))}
-                </tbody>
+                </div>
+
+
+
+
+
                 <ReactPaginate
                     previousLabel={<i style={{ color: '#cc0033' }} className="fas fa-angle-left"></i>}
                     nextLabel={<i style={{ color: '#cc0033' }} className="fas fa-angle-right"></i>}
@@ -143,10 +158,12 @@ const ViewCustomerData = () => {
                     breakLinkClassName={'page-link'}
                     activeClassName={'active'}
                 />
-            </table>
-            <div className="mb-3" id="ftr">
-                <p className="footer" style={{ marginBottom: '0px' }}>Developed by Electrogets Technologies Pvt Ltd © 2023. All rights reserved by The Wise Owl</p>
+                <div className="mb-3" id="ftr">
+                    <p className="footer" style={{ marginBottom: '0px' }}>Developed by Electrogets Technologies Pvt Ltd © 2023. All rights reserved by The Wise Owl</p>
+                </div>
             </div>
+
+
         </div>
     )
 }

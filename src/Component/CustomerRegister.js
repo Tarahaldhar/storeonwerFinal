@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import './CustomerRegister.css';
 import { useEffect } from 'react';
 
 const CustomerRegister = (props) => {
@@ -95,53 +96,58 @@ const CustomerRegister = (props) => {
     }
     return (
         <div>
-            {/* ---------------header--------------------- */}
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <div className='logo-admin'>
-                        <Link to="/">
-                            <img className='logothe-wise-owl' style={{ width: '60px', height: '60px' }} src='img/lglogo.png' />
-                        </Link>
-                    </div>
-                    {/* <a class="navbar-brand" href="#">Navbar</a> */}
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            {/* <li class="nav-item">
+            <div className="customer-review-page">
+                {/* ---------------header--------------------- */}
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <div className="container-fluid">
+                        <div className='logo-admin'>
+                            <Link to="/">
+                                <img className='logothe-wise-owl' style={{ width: '60px', height: '60px' }} src='img/lglogo.png' />
+                            </Link>
+                        </div>
+                        {/* <a class="navbar-brand" href="#">Navbar</a> */}
+                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                {/* <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li> */}
 
-                        </ul>
-                        <form className="d-flex align-items-center">
+                            </ul>
+                            <form className="d-flex align-items-center" style={{ cursor: 'pointer' }}>
 
-                            <i className="fa-solid fa-right-from-bracket" style={{ color: '#cc0033' }}></i>&nbsp;
-                            <p style={{ marginBottom: '0px' }}>Logout</p>
+                                <i className="fa-solid fa-right-from-bracket" style={{ color: '#cc0033' }}></i>&nbsp;
+                                <Link to="/" style={{ color: '#cc0033', textDecoration: 'none' }}>
+                                    <p style={{ marginBottom: '0px' }}>Logout</p>
+                                </Link>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+                {/* -------------------header end-------------- */}
+                <div className='main-form-wrapper'>
+                    <form className='login' id='customer-rview'>
+                        <h5>Customer Review</h5>
+                        <div className=''>
+                            <p style={{ color: '#cc0033', fontWeight: 'bold', marginBottom: '0px', textAlign: 'center !important' }}>No Review yet ?</p>
+                            {/* <button id='writeReview-btn' className='write-review-customer'>Write a Review</button> */}
+                        </div>
 
-                        </form>
-                    </div>
-                </div>
-            </nav>
-            {/* -------------------header end-------------- */}
-            <div className='main-form-wrapper'>
-                <form className='login' id='customer-rview'>
-                    <h5>Customer Review</h5>
-                    <div className='contentWithWrapperbtn'>
-                        <p style={{ color: '#cc0033', fontWeight: 'bold', marginBottom: '0px' }}>No Review yet</p>
-                        {/* <button id='writeReview-btn' className='write-review-customer'>Write a Review</button> */}
-                    </div>
-
-                    <br />
-                    <hr />
-                    <br />
-                    <div className='orLoginwithCredn'>
-                        <p style={{ color: '#71717A', fontWeight: '500', marginBottom: '10px' }}></p>
-                    </div>
-                    <input type='text' name='name' value={customerjorney.name} onChange={(e) => handleInput(e)} placeholder='Enter Name' />
-                    <input type='text' name='email' value={customerjorney.email} onChange={(e) => handleInput(e)} placeholder='Enter Email' />
-                    <input type='text' name='phone_number' value={customerjorney.phone_number} onChange={(e) => handleInput(e)} placeholder='Phone Number' />
-                    {/* <input
+                        <hr />
+                        
+                        <div className='logo_for_login'>
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        <br />
+                        {/* <div className='orLoginwithCredn'>
+                            <p style={{ color: '#71717A', fontWeight: '500', marginBottom: '10px' }}></p>
+                        </div> */}
+                        <input type='text' name='name' value={customerjorney.name} onChange={(e) => handleInput(e)} placeholder='Enter Name' />
+                        <input type='text' name='email' value={customerjorney.email} onChange={(e) => handleInput(e)} placeholder='Enter Email' />
+                        <input type='text' name='phone_number' value={customerjorney.phone_number} onChange={(e) => handleInput(e)} placeholder='Phone Number' />
+                        {/* <input
                         type='text'
                         name='salesperson_name'
                         value={customerjorney.salesperson_name}
@@ -151,21 +157,22 @@ const CustomerRegister = (props) => {
 
 
 
-                    <Dropdown className="productList" style={{ textAlign: 'left !important' }} options={option} onChange={(e) => handleOption(e)} value={salespersonname} name="salesname" placeholder="Select an option" />
+                        <Dropdown className="productList" style={{ textAlign: 'left !important' }} options={option} onChange={(e) => handleOption(e)} value={salespersonname} name="salesname" placeholder="Select an option" />
 
-                    <div class="form-check form-check-inline checkbox-parent">
-                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                        <label class="form-check-label" for="inlineCheckbox1" style={{ fontSize: '14px' }}>Remember</label>
-                    </div>
-                    {/* end checkbox */}
-                    {/* <button type='submit' onClick={(e) => handleSubmit(e)} >Review</button> */}
-                    <input type='submit' onClick={(e) => handleSubmit(e)} value="Review" />
-                </form>
-                <div className="mb-3" id="ftr">
-                    <p className="footer" style={{ marginBottom: '0px' }}>Developed by Electrogets Technologies Pvt Ltd © 2023. All rights reserved by The Wise Owl</p>
+                        <div class="form-check form-check-inline checkbox-parent">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
+                            <label class="form-check-label" for="inlineCheckbox1" style={{ fontSize: '14px' }}>Remember</label>
+                        </div>
+                        {/* end checkbox */}
+                        {/* <button type='submit' onClick={(e) => handleSubmit(e)} >Review</button> */}
+                        <input type='submit' onClick={(e) => handleSubmit(e)} value="Review" />
+                    </form>
+
                 </div>
             </div>
-
+            <div className="mb-3" id="ftr">
+                <p className="footer" style={{ marginBottom: '0px' }}>Developed by Electrogets Technologies Pvt Ltd © 2023. All rights reserved by The Wise Owl</p>
+            </div>
         </div>
     )
 }
