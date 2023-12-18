@@ -2,14 +2,24 @@
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-}
 
+}
+body{
+  background-color: #c332db !important;
+}
 .store-admin {
-  background-image: url('/public//img/background-1.jpg') !important;
+  /* background-image: url('/public//img/background-1.jpg') !important; */
+  /* background-image: url('/public//img/Customer-review\ banner.jpg') !important; */
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100vh;
-
+  background-color: #c332db;
+  height: auto;
+  height: 110vh;
+}
+.formparent {
+  position: relative;
+  border: none;
+  top: 20px;
 }
 
 input#inlineCheckbox1 {
@@ -17,42 +27,35 @@ input#inlineCheckbox1 {
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,600&display=swap');
-
-
 body {
   background-color: #E3E6E6;
   ;
 }
-
 .loginwith-parent {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-
 .loginwith-parent .loginwithChild {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 img.google {
   width: 20px;
 }
-
-.logo-admin img {
+.logo-admin img { 
   width: 100px;
   text-align: center;
   height: auto;
 }
-
 .form-check-inline {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-items: baseline;
   gap: 5px;
   padding-left: 0;
   margin-right: 0.75rem;
@@ -129,7 +132,7 @@ img.google {
 
 .login input[type=submit] {
   border: none;
-  background: #cc0033;
+  background: #a48be9;
   color: white;
   font-weight: bold;
   transition: 0.2s;
@@ -192,20 +195,31 @@ img.google {
 }
 
 .login input[type="text"]:focus {
-  border: 1.5px dotted #cc0033 !important;
+  /* border: 1.5px dotted #cc0033 !important; */
 
+}
+.login input[type=text], .login input[type=password] {
+  border: none;
+  border-bottom: 1px solid #c332db !important;
+  transition: .2s;
 }
 
 .login input[type="password"]:focus {
-  border: 1.5px dotted #cc0033 !important;
+  /* border: 1.5px dotted #cc0033 !important; */
 
 }
 
 @media only screen and (max-width: 768px) {
   .store-admin {
-    background-image: url('/public//img/back-second-page.jpg') !important;
+    background-color: #c332db !important;
     background-size: cover;
     background-repeat: no-repeat;
+  }
+  .orLoginwithCredn{
+    width: auto;
+  }
+  .login {
+    opacity: .7;
   }
 
   .login storeAdmin {
@@ -214,38 +228,43 @@ img.google {
 
   .login input[type=submit] {
     margin: 1px 0px !important;
-    background-color: #cc0033;
+    background-color: #a48be9;
+    border-radius: 20px;
   }
 }
 
 input[type="text"] {
-  border: 1px solid #cc0033!important;
+  /* border: 1px solid #cc0033!important; */
+  border: none;
 }
 
 .Dropdown-control {
   padding: 12px 15px;
-  border: 1px solid #cc0033!important;
+  /* border: 1px solid #cc0033!important; */
 }
 
 input#inlineCheckbox1 {
   padding: 7px !important;
+  width: 10px;
+  padding-bottom: 5px !important;
+  margin-top: 5px;
 }
 
 input[type="password"] {
-  border: 1px solid #cc0033!important;
+  /* border: 1px solid #cc0033!important; */
+  border: none;
 }
 
 .orLoginwithCredn {
-  background: rgb(204,0,51);
-  background: linear-gradient(90deg, rgba(204,0,51,1) 2%, rgba(172,21,62,1) 53%);
+  background: #EDDEE1;
   width: 450px;
-  height: 100px !important;
+  height: 60px !important;
   margin: auto;
   display: flex;
   margin-bottom: -20px;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: #000;
 }
 .logo_for_login {
   background-color: #9BACE6;
@@ -261,5 +280,31 @@ input[type="password"] {
 }
 .navbar navbar-expand-lg navbar-light bg-light{
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px !important;
+}
+input:focus{
+  background-color: none !important;
+}
 
+.navbar-expand-lg .navbar-collapse {
+  display: -webkit-box!important;
+  display: -ms-flexbox!important;
+  display: flex!important;
+  -ms-flex-preferred-size: auto;
+
+  justify-content: flex-end !important;
+  align-items: center !important;
+}
+a.nav-link.z12 {
+  background-color: #413759;
+  color: #fff !important;
+  gap: 10px;
+}
+ul.navbar-nav.my-auto.mb-2.mb-lg-0 {
+  gap: 12px;
+}
+
+a.nav-link.z12:hover{
+  background-color: #fff;
+  color: #413759 !important;
+  font-weight: bold;
 }

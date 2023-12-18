@@ -4,7 +4,8 @@
 }
 
 .sales-signup-page {
-  background-image: url('/public//img/Customer-Review-Banner.jpg') !important;
+  /* background-image: url('/public//img/Customer-Review-Banner.jpg') !important; */
+  background-image: url('/public//img/storeAdmin.jpg') !important;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -37,12 +38,11 @@ img.google {
   display: inline-flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+  align-items: baseline;
   gap: 5px;
   padding-left: 0;
   margin-right: 0.75rem;
 }
-
 .logo-admin {
   display: flex;
   justify-content: center;
@@ -76,17 +76,14 @@ img.google {
 
 .login {
   margin: 20px auto;
-  padding: 10px 50px;
+  padding: 40px 50px;
   max-width: 450px;
   border-bottom: 3px solid #2C3E50;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-bottom-left-radius: 14px !important;
   border-bottom-right-radius: 14px !important;
   border-radius: 5px;
-  /* transform: translate(0, 50%); */
   background: #fff;
-  /* box-shadow: 1px 1px 1px #ccc;
-    border: 1px solid #ccc; */
 }
 
 .login input {
@@ -96,6 +93,7 @@ img.google {
   margin: 10px 0;
   outline: none;
   padding: 14px 12px;
+  border: 2px solid dotted #1abc9c;
   font-size: 16px;
   border-radius: 2px;
   font-family: Raleway, sans-serif;
@@ -103,7 +101,7 @@ img.google {
 
 .login input[type=text],
 .login input[type=password] {
-  border: 1px solid #c0c0c0;
+  border: none;
   transition: .2s;
 }
 
@@ -115,7 +113,7 @@ img.google {
 
 .login input[type=submit] {
   border: none;
-  background-color: #cc0033;
+  background-color: #a48de9;
   color: white;
   font-weight: bold;
   transition: 0.2s;
@@ -188,7 +186,7 @@ div#ftr {
 
 @media only screen and (max-width: 768px) {
     .sales-signup-page{
-     background-image: url('/public//img/back-second-page.jpg') !important;
+     background-image: url('/public//img/Phone 2.jpg') !important;
      background-size: cover;
      background-repeat: no-repeat;
     }

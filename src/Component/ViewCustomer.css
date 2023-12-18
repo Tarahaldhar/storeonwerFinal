@@ -94,7 +94,7 @@ button.edit-store {
 .page-item.active .page-link {
     z-index: 1;
     color: #fff;
-    background-color: #cc0033;
+    background-color: #413759;
     border: none;
 }
 
@@ -193,12 +193,12 @@ tr.viewcustomer-header {
     justify-content: space-between;
     max-width: 400px;
     gap: 20px;
-    border: 1px solid #cc0033;
+  
 }
 
 .parentHeadCustomer {
-    border: 1px solid red;
-    background-color: #cc0033;
+   
+    background-color: #413759;
     color: #fff;
 }
 
@@ -206,4 +206,16 @@ tr.viewcustomer-header {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
+}
+.box2 {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    font-size: 12px !important;
+    margin-bottom: 1rem;
+    background-color: transparent;
 }

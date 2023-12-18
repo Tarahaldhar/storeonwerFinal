@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import './CustomerRegister.css';
 import { useEffect } from 'react';
+import Button from './ButtonCustomerResponse';
+import Modal from './CustomerResponseModal';
+import { actionCreators } from '../Store/StoreAdminPannel/SalesAction';
+import Navbar from './Navbar';
 
 const CustomerRegister = (props) => {
+    const dispatch=useDispatch()
+    const [showModalStyle, setShowModalStyle] = useState(false)
+    const [error, setError] = useState()
     const [salespersonname, setSalesPersonName] = useState([]) // select option
+    const [selectProduct, setSelectProduct] = useState()
     const [option, setOption] = useState('')// call option below jsx
     console.log('salesData', props?.salesData);
     const navigate = useNavigate()
@@ -24,11 +32,19 @@ const CustomerRegister = (props) => {
         setCustomerJorney({
             ...customerjorney, [e.target.name]: e.target.value
         })
+        console.log(e);
     }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!customerjorney.description) {
+            setError({ description: 'Please Enter Description Click on Consumer Enquiry button to put a description' })
+            return
+        }
+        else{
+            setError({description:''})
+        }
         try {
             // Get the access token from the Redux store
             const accessToken = getTokenfromstore?.tokens?.access;
@@ -38,12 +54,14 @@ const CustomerRegister = (props) => {
                 return;
             }
             const response = await axios.post(
-                'http://127.0.0.1:8000/customer/register/',
+                'https://thewiseowl.pythonanywhere.com/customer/register/',
                 {
                     name: customerjorney.name,
                     email: customerjorney.email,
                     phone_number: customerjorney.phone_number,
                     salesperson_name: salespersonname,
+                    product_choice: selectProduct,
+                    description: customerjorney.description
                 },
                 {
                     headers: {
@@ -56,7 +74,9 @@ const CustomerRegister = (props) => {
             localStorage.setItem('token', token);
             setCustomerApiResData(response.data)
             alert("Sales person successfully signup")
-            navigate('/viewcustomer')
+            navigate('/viewcustomer', {
+                state: { selectProduct, customerjorney, salespersonname }
+            })
 
         } catch (error) {
             // alert("Failed to sign up");
@@ -70,7 +90,7 @@ const CustomerRegister = (props) => {
         console.log('acces', accessToken);
         if (accessToken) {
             axios({
-                url: 'http://127.0.0.1:8000/salesperson/create/',
+                url: 'https://thewiseowl.pythonanywhere.com/salesperson/create/',
                 data: {
 
                 },
@@ -94,52 +114,33 @@ const CustomerRegister = (props) => {
         console.log('e', e);
         setSalesPersonName(e.value)
     }
+    const handleProductList = (e) => {
+        console.log(e);
+        setSelectProduct(e.target.value)
+    }
+    const openModal = (e) => {
+        e.preventDefault()
+        setShowModalStyle(true)
+    }
+    dispatch(actionCreators.salesData(customerjorney))
     return (
         <div>
             <div className="customer-review-page">
-                {/* ---------------header--------------------- */}
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <div className="container-fluid">
-                        <div className='logo-admin'>
-                            <Link to="/">
-                                <img className='logothe-wise-owl' style={{ width: '60px', height: '60px' }} src='img/lglogo.png' />
-                            </Link>
-                        </div>
-                        {/* <a class="navbar-brand" href="#">Navbar</a> */}
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                {/* <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li> */}
-
-                            </ul>
-                            <form className="d-flex align-items-center" style={{ cursor: 'pointer' }}>
-
-                                <i className="fa-solid fa-right-from-bracket" style={{ color: '#cc0033' }}></i>&nbsp;
-                                <Link to="/" style={{ color: '#cc0033', textDecoration: 'none' }}>
-                                    <p style={{ marginBottom: '0px' }}>Logout</p>
-                                </Link>
-                            </form>
-                        </div>
-                    </div>
-                </nav>
+           <Navbar/>
                 {/* -------------------header end-------------- */}
                 <div className='main-form-wrapper'>
-                    <form className='login' id='customer-rview'>
-                        <h5>Customer Review</h5>
+                    <div className='login' id='customer-rview'>
+                        <h5 style={{fontSize:'19px', fontWeight:'bold'}}>Customer Review</h5>
                         <div className=''>
                             <p style={{ color: '#cc0033', fontWeight: 'bold', marginBottom: '0px', textAlign: 'center !important' }}>No Review yet ?</p>
                             {/* <button id='writeReview-btn' className='write-review-customer'>Write a Review</button> */}
                         </div>
 
                         <hr />
-                        
+
                         <div className='logo_for_login'>
-                                <i class="fa-solid fa-user"></i>
-                            </div>
+                            <i className="fa-solid fa-user"></i>
+                        </div>
                         <br />
                         {/* <div className='orLoginwithCredn'>
                             <p style={{ color: '#71717A', fontWeight: '500', marginBottom: '10px' }}></p>
@@ -147,6 +148,37 @@ const CustomerRegister = (props) => {
                         <input type='text' name='name' value={customerjorney.name} onChange={(e) => handleInput(e)} placeholder='Enter Name' />
                         <input type='text' name='email' value={customerjorney.email} onChange={(e) => handleInput(e)} placeholder='Enter Email' />
                         <input type='text' name='phone_number' value={customerjorney.phone_number} onChange={(e) => handleInput(e)} placeholder='Phone Number' />
+
+
+                        <div className="mb-3">
+                            <select name='Product' className="form-control" id="Product" onChange={(e) => handleProductList(e)}>
+                                <option value="" disabled selected> Select product</option>
+                                <option value="Air Conditioner">Air Conditioner  </option>
+                                <option value="Refrigerator">Refrigerator</option>
+                                <option value="Washing Machine">Washing Machine </option>
+                                <option value="Oled/Nano/UHD/ LED">Oled/Nano/UHD/ LED </option>
+                                <option value="Microwave ">Microwave   </option>
+                                <option value="Water Purifier">Water Purifier</option>
+                                <option value="Air Purifier">Air Purifier</option>
+                                <option value="Dishwasher ">Dishwasher </option>
+                                <option value="XBoom"> XBoom </option>
+                                <option value="Tone Free">Tone Free </option>
+                                <option value="Styler ">Styler  </option>
+
+                            </select>
+                            <span id="Product_e" className="text-danger font-weight-bold"></span>
+                        </div>
+
+
+                        {/* <div class="form-group" name="description" value={customerjorney.description} onChange={(e) => handleInput(e)} >
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div> */}
+
+                        <Button openModal={() => setShowModalStyle(true)} />
+                        {showModalStyle && <Modal isOpen={showModalStyle}
+                            clickhandler={() => setShowModalStyle(false)} value={customerjorney.description}
+                            onChange={(e) => handleInput(e)} />}
+
                         {/* <input
                         type='text'
                         name='salesperson_name'
@@ -159,14 +191,15 @@ const CustomerRegister = (props) => {
 
                         <Dropdown className="productList" style={{ textAlign: 'left !important' }} options={option} onChange={(e) => handleOption(e)} value={salespersonname} name="salesname" placeholder="Select an option" />
 
-                        <div class="form-check form-check-inline checkbox-parent">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
-                            <label class="form-check-label" for="inlineCheckbox1" style={{ fontSize: '14px' }}>Remember</label>
+                        <div className="form-check form-check-inline checkbox-parent">
+                            <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" />
+                            <label className="form-check-label" for="inlineCheckbox1" style={{ fontSize: '14px' }}>Remember</label>
                         </div>
                         {/* end checkbox */}
                         {/* <button type='submit' onClick={(e) => handleSubmit(e)} >Review</button> */}
+                        {error?.description && <div  className="shake" style={{fontSize:'12px', color:'red', fontWeight:'bold'}}>{error.description}</div>}
                         <input type='submit' onClick={(e) => handleSubmit(e)} value="Review" />
-                    </form>
+                    </div>
 
                 </div>
             </div>

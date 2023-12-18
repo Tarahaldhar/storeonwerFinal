@@ -6,14 +6,14 @@ export const actionCreators = {
         const getToken=getState().masterStoreAdmin
     console.log('gettoken', getToken);
         axios({
-            url: "http://127.0.0.1:8000/storeowner/login/",
+            url: "https://thewiseowl.pythonanywhere.com/storeowner/login/",
             data: {
                 
                 "email": token?.email,
                 "password": token?.password
             },
             method:"post"
-        }).then((res)=>{
+        }).then( (res)=>{
             console.log('token', res?.data?.token);
             dispatch({type:masterStoreLogin, payload:res.data})
         }).catch((error)=>{

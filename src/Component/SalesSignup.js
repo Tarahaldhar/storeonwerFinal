@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import CustomerRegister from './CustomerRegister';
 import { useEffect } from 'react';
 import { actionCreators } from '../Store/StoreAdminAuth/StoreAdminAction';
+import Navbar from './Navbar';
 
 const SalesSignup = () => {
     const dispatch = useDispatch()
@@ -36,7 +37,7 @@ const SalesSignup = () => {
                 return;
             }
             const response = await axios.post(
-                'http://127.0.0.1:8000/salesperson/create/',
+                'https://thewiseowl.pythonanywhere.com/salesperson/create/',
                 {
                     // store_owner_email: salesPersonSignup.email,
                     name: salesPersonSignup.name,
@@ -53,7 +54,7 @@ const SalesSignup = () => {
             localStorage.setItem('token', token);
             setApiResData(response.data)
             alert("Sales person successfully signup")
-            navigate('/customerjorney')
+            navigate('/customerreview')
         } catch (error) {
             alert("Failed to sign up");
             console.log('error', error);
@@ -71,42 +72,10 @@ const SalesSignup = () => {
     return (
         <div>
             <div className='sales-signup-page'>
-                {/* ---------------header--------------------- */}
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <div className="container-fluid">
-                        <div className='logo-admin'>
-                            <Link to="/">
-                                <img className='logothe-wise-owl' style={{ width: '60px', height: '60px' }} src='img/lglogo.png' />
-                            </Link>
-                        </div>
-                        {/* <a class="navbar-brand" href="#">Navbar</a> */}
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                {/* <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li> */}
-
-                            </ul>
-                            <div className="d-flex align-items-center">
-
-
-
-                                <i class="fa-solid fa-plus" style={{ color: '#cc0033', fontWeight: 'bold' }}></i>&nbsp;
-                                <Link to={'/customerjorney'} style={{ textDecoration: 'none', color: '#cc0033' }}>
-                                    <p style={{ marginBottom: '0px' }}>Take Review</p>
-                                </Link>
-
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-                {/* -------------------header end-------------- */}
+             <Navbar/>
 
                 <form className='login saless'>
-                    <h3 style={{ fontSize: '18px' }}>Registration</h3>
+                    <h3 style={{ fontSize: '19px', color:'#413759', fontWeight:'bold' }}>Registration</h3>
                     <p style={{ marginBottom: '0px', color: '#cc0033', fontWeight: 'bold', textTransform: 'uppercase' }}>Sales</p><br />
                     {/* <div className='logo-admin'>
                     <img className='logothe-wise-owl' src='img/lglogo.png' />

@@ -4,7 +4,8 @@
     font-family: 'Poppins', sans-serif;
 
 }
-.customer-review-page{
+
+.customer-review-page {
     background-image: url('/public//img/Customer-Review-Banner.jpg') !important;
     background-size: cover;
     background-repeat: no-repeat;
@@ -52,6 +53,17 @@ button#writeReview-btn {
 
 }
 
+.mb-3 {
+    border: none;
+    background:none;
+    /* border: 1.5px dotted #cc0033 !important; */
+}
+.mb-3:focus{
+    border: 1px solid #cc0033;
+
+    /* border: 1.5px dotted #cc0033 !important; */
+}
+
 button#writeReview-btn {
     background-color: #000;
     color: #fff;
@@ -75,13 +87,70 @@ input#inlineCheckbox1 {
 
 
 @media only screen and (max-width: 768px) {
-    .main-form-wrapper{
+    .main-form-wrapper {
         width: auto;
     }
-    .customer-review-page{
-        background-image: url('/public//img/back-second-page.jpg') !important;
+
+    .customer-review-page {
+        background-image: url('/public//img/Phone-3.jpg') !important;
         background-size: cover;
         background-repeat: no-repeat;
     }
 
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: none;
+    color: #495057;
+    background-color: none;
+    background-clip: padding-box;
+    border-bottom: 1px solid #cc0033;}
+
+
+    .Dropdown-control {
+        position: relative;
+        overflow: hidden;
+        background-color: white;
+        border:none;
+        border-radius: 2px;
+        box-sizing: border-box;
+        color: #333;
+        border-bottom: 1px solid #cc0033;
+        cursor: default;
+        outline: none;
+        padding: 8px 52px 8px 10px;
+        transition: all 200ms ease;
+    }
+
+    @keyframes shake {
+        0%, 100% {
+        transform: translateX(0);
+        }
+        25%, 75% {
+        transform: translateX(-10px);
+        }
+        50% {
+        transform: translateX(10px);
+        }
+        }
+        
+        .shake {
+        animation: shake 2s ease-in-out ;
+        }
+        
+
+.form-control{
+    border-bottom: 1px solid #cc0033 !important;
+    border: none;
+    color: #757575 !important;
+    font-size: 16px;
+    font-family: poppins;
+}
+.Dropdown-control{
+    color: #757575 !important;
+  
 }

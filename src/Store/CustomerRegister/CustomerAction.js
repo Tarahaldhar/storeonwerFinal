@@ -3,7 +3,7 @@ import axios from 'axios';
 export const actionCreators = {
     CustomerRegister: () => async (dispatch, getState) => {
         axios({
-            url: 'http://127.0.0.1:8000/customer/register/',
+            url: 'https://sandy00099.pythonanywhere.com/salesperson/create/',
             data: {
                 "name": customerjorney.name,
                 "email": customerjorney.email,
