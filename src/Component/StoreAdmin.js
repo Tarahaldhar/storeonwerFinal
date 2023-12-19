@@ -36,16 +36,16 @@ const StoreAdmin = () => {
                         </div> */}
                         <div className='formparent'>
                             <form className='login storeAdmin'>
-                                {/* <div className='logo-admin'>
-                                    <img className='logothe-wise-owl' src='img/lglogo.png' />
-                                </div> */}
+                                <div className='logo-admin'>
+                                    <img className='logothe-wise-owl' src='img/wishise-logo.jpeg' style={{width:'150px', height:'auto'}} />
+                                </div>
                                 <p style={{ textAlign: 'center', fontSize: '25px', color: '#413759', marginBottom: '7px', fontWeight: 'bold' }}>Login</p>
                                 <hr style={{ margin: '0px' }} />
                                 <br />
-                                <div className='logo_for_login'>
+                                {/* <div className='logo_for_login'>
                                     <i class="fa-solid fa-user"></i>
                                 </div>
-                                <br />
+                                <br /> */}
                                 <input type='text' name='email' value={storeLogin.email} onChange={(e) => handleInput(e)} placeholder='Email' />
                                 <input type='password' name='password' value={storeLogin.password} onChange={(e) => handleInput(e)} placeholder='Password' />
 

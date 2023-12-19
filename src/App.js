@@ -1,6 +1,6 @@
 import './App.css';
 import {Routes, Route} from 'react-router-dom';
-import StoreAdmin from './Component/StoreAdmin';
+import StoreAd from './Component/StoreAd';
 import CustomerRegister from './Component/CustomerRegister';
 import SalesSignup from './Component/SalesSignup';
 import ViewCustomerData from './Component/ViewCustomerData';
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='' element={<StoreAdmin/>}/>
+        <Route path='' element={<StoreAd/>}/>
         <Route path='/sales' element={<SalesSignup/>}/>
         <Route path='/customerreview' element={<CustomerRegister/>}/>
         <Route path='/viewcustomer' element={<ViewCustomerData/>}/>
