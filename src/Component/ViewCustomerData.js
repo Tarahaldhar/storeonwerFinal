@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate, useLocation} from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import * as XLSX from 'xlsx';
 import './ViewCustomer.css';
@@ -12,9 +12,9 @@ import CustomerMddal from './CustomerModal';
 import StoreAdminPannel from './StoreAdminPannel';
 
 const ViewCustomerData = () => {
-    const[showModal, setShowModal]=useState(false)
-    const[showAdmin, setAdmin]=useState(false)
-    const location=useLocation()
+    const [showModal, setShowModal] = useState(false)
+    const [showAdmin, setAdmin] = useState(false)
+    const location = useLocation()
     const [CustData, SetCustData] = useState([])
     const [accordian, setAccordian] = useState(null)
     const navigate = useNavigate()
@@ -33,7 +33,7 @@ const ViewCustomerData = () => {
                 "name": location?.customerjorney?.name,
                 "email": location?.customerjorney?.email,
                 "phone_number": location?.customerjorney?.phone_number,
-                "product_choice":location?.selectProduct,
+                "product_choice": location?.selectProduct,
                 "description": location?.customerjorney?.description,
                 "salesperson_name": location?.salespersonname
             },
@@ -65,29 +65,29 @@ const ViewCustomerData = () => {
         // SetCustData(allData[index].customers)
         // console.log('alldata', allData[index]);
         console.log('e', e, index);
-        const data=allData.filter((val)=>index===val.salesperson_job_id)
+        const data = allData.filter((val) => index === val.salesperson_job_id)
         console.log('data', data[0].customers);
         SetCustData(data[0].customers)
         setShowModal(true)
         index === accordian ? setAccordian(null) : setAccordian(index)
     }
-    const handleExcel=(e)=>{
+    const handleExcel = (e) => {
         const data = CustData.map((val) => {
-            return [val.id, val.name,val.email, val.phone_number, val.salesperson_name, val.product_choice, val.description]
+            return [val.id, val.name, val.email, val.phone_number, val.salesperson_name, val.product_choice, val.description]
 
         })
-        const data1=['Id','Name', 'Email', 'Phone Number',  'Sales Person Name', 'Product List', 'Description']
+        const data1 = ['Id', 'Name', 'Email', 'Phone Number', 'Sales Person Name', 'Product List', 'Description']
         data.unshift(data1)
-         var ws = XLSX.utils.aoa_to_sheet(data)
+        var ws = XLSX.utils.aoa_to_sheet(data)
         var wv = XLSX.utils.book_new()
         XLSX.utils.book_append_sheet(wv, ws, 'demo')
         XLSX.writeFile(wv, 'sheet.xlsx')
     }
-    console.log('location',location.state);
+    console.log('location', location.state);
     return (
         <div>
-            {showAdmin && <StoreAdminPannel data1={CustData} show={showModal} handleClose={()=>setShowModal(false)}/>}
-            {showModal && <CustomerMddal data={CustData} show={showModal} handleClose={()=>setShowModal(false)}/>}
+            {showAdmin && <StoreAdminPannel data1={CustData} show={showModal} handleClose={() => setShowModal(false)} />}
+            {showModal && <CustomerMddal data={CustData} show={showModal} handleClose={() => setShowModal(false)} />}
             <div className='view-customer-page'>
                 {/* --------------------Navigation bar start------------------------------ */}
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -137,7 +137,7 @@ const ViewCustomerData = () => {
 
                                 </div>
                             </div>
-                           
+
                         </div>
 
                     ))}

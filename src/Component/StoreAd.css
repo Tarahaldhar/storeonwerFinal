@@ -6,32 +6,13 @@
   box-sizing: border-box;
 }
 body {
-  /* background: #8b1dc0; */
-
-   background-image: url('/public/img/BG-Desktop.jpg');
-
-   background-size: cover;
-  
-  
-  /* background: hsla(217, 100%, 50%, 1);
-
-  background: linear-gradient(
-    90deg,
-    hsla(217, 100%, 50%, 1) 0%,
-    hsla(186, 100%, 69%, 1) 100%
-  );
-
-  background: -moz-linear-gradient(
-    90deg,
-    hsla(217, 100%, 50%, 1) 0%,
-    hsla(186, 100%, 69%, 1) 100%
-  );
-
-  background: -webkit-linear-gradient(
-    90deg,
-    hsla(217, 100%, 50%, 1) 0%,
-    hsla(186, 100%, 69%, 1) 100%
-  ); */
+}
+.bg-img-page {
+  background-image: url("/public/img/BG-Desktop.jpg");
+  background-size: cover;
+  width: 100%;
+  background-size: cover;
+  height: 100vh;
 }
 .login-wrapper {
   width: 430px;
@@ -54,25 +35,22 @@ body {
 .shape:first-child {
   /* background: linear-gradient(#9b22ea, #bf23f6); */
 
-
   left: -80px;
   top: -80px;
 }
 .shape:last-child {
-
 }
 form {
   height: auto;
   width: 360px;
-  background-color: #fff;
+  background-color: #f3f3f3;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  border-radius: 10px;
+  border-radius: 18px;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.1);
-  /* box-shadow: 0 0 40px rgba(8, 7, 16, 0.6); */
   padding: 35px 35px;
 }
 form * {
@@ -84,58 +62,70 @@ form * {
 }
 form h3 {
   font-size: 32px;
-  font-weight: 500;
+  font-weight: bold;
   line-height: 42px;
   text-align: center;
-  color: #000 !important;
+  color: #6442c0 !important;
 }
+input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  appearance: checkbox;
+  display: inline-block;
+  width: auto;
+}
+
 form h3 span {
   display: block;
   font-size: 16px;
   font-weight: 300;
   color: #000 !important;
 }
-label {
-  display: block;
 
-  font-size: 16px;
-  font-weight: 500;
-  text-align: justify;
-  color: #000 !important;
-}
-input {
+input,
+select,
+textarea {
   display: block;
-  height: 42px;
+  height: auto;
   width: 100%;
+  margin-top: 10px !important;
   border-radius: 27px;
-  background-color: #fff;
+
   color: black;
   padding: 0 10px;
   margin-top: 8px;
   font-size: 14px;
+  padding: 10px;
   font-weight: 300;
 }
 ::placeholder {
   color: #000;
 }
-.headingWelcomeBack{
-    color: #9755d0;
-  
+.headingWelcomeBack {
+  color: #9755d0;
 }
-button {
-    margin-top: 20px;
-    width: 44%;
-    color: #fff !important;
-    outline: none;
-    background: rgb(0,141,204);
-    background: linear-gradient(90deg, rgba(0,141,204,1) 2%, rgba(102,21,172,0.751313025210084) 53%);
-    color: #0b4e86;
-    padding: 5px 0;
-    font-size: 16px;
-    /* height: 42px; */
-    font-weight: 600;
-    border-radius: 27px;
-    cursor: pointer;
+button#sidebarCollapse {
+  position: relative;
+  left: -40px;
+}
+.login-button-admin {
+  margin-top: 20px;
+  width: 44%;
+  color: #fff !important;
+  outline: none;
+  background: rgb(0, 141, 204);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 141, 204, 1) 2%,
+    rgba(102, 21, 172, 0.751313025210084) 53%
+  );
+  color: #0b4e86;
+  padding: 5px 0;
+  font-size: 16px;
+  /* height: 42px; */
+  font-weight: 600;
+  border-radius: 27px;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {
@@ -149,17 +139,28 @@ button {
 }
 
 .bg {
-    width: 100%;
-    height: 150px;
-    background: #d3d3d345;
-    position: absolute;
-    top: 0em;
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    -webkit-clip-path: ellipse(69% 46% at 50% 50%);
-    clip-path: ellipse(56% 135% at 48% 46%);
+  width: 100%;
+  height: 150px;
+  background: #fff;
+  position: absolute;
+  top: 0em;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-position: center;
+  z-index: -999;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-clip-path: ellipse(69% 46% at 50% 50%);
+  clip-path: ellipse(56% 135% at 48% 46%);
+  border-bottom-left-radius: 247px;
+  border-bottom-right-radius: 241px;
+  border-top-left-radius: 21px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border-top-right-radius: 21px;
+}
+.login-side-img {
+  position: relative;
+  left: -42px;
+  top: 10px;
 }
