@@ -13,5 +13,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WISEISH }}'
-          projectId: wiseish
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_WISEISH_C94F9 }}'
+          projectId: wiseish-c94f9
