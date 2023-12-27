@@ -4,10 +4,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactPaginate from 'react-paginate';
+import moment from 'moment';
 import { FaCalendarAlt } from 'react-icons/fa';
 import axios from 'axios';
 import DashbaordHeader from './DashbaordHeader';
 import DashboardCard from './DashboardCard';
+import { useLocation } from 'react-router-dom';
 function CustomInput({ value, onClick }) {
     return (
         <div className='input-date-parent'>
@@ -22,8 +24,9 @@ function CustomInput({ value, onClick }) {
         </div>
     )
 }
-const DashboardCustomerData = () => {
-    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin)
+const DashboardCustomerData = (props) => {
+    const location = useLocation()
+    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin?.access)
     console.log('storeadminlogin', getStoreAdminToken);
     const [numberOfPages, setNumberOfPages] = useState(1)
     const [allData, setAllData] = useState([])
@@ -36,27 +39,37 @@ const DashboardCustomerData = () => {
 
     // sales person api call 
     useEffect(() => {
-        const accessToken = getStoreAdminToken?.tokens?.access;
-        console.log('acces', accessToken);
-        if (accessToken) {
-            axios({
-                url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer_data/?limit=3&page=${currentPage}&pageSize=${pageSize}`,
-                data: {
+        if (location?.state?.data) {
+            console.log('salesmen', location.state.data);
+            setCustomerGetData(location.state.data)
+            setAllData(location.state.data)
+            setStoreData(location.state.data.slice(0, 10))
+            setNumberOfPages(Math.ceil(location.state.data.length / 10))
+        } else {
+            if (getStoreAdminToken) {
+                console.log('salestoken', getStoreAdminToken);
+                axios({
+                    url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer_data/`,
+                    data: {
 
-                },
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                },
-                method: 'get'
-            }).then((result) => {
-                console.log('salesmen', result.data);
-                setCustomerGetData(result.data)
-                setAllData(result.data)
-                setStoreData(result.data.slice(0, 10))
-                setNumberOfPages(Math.ceil(result.data.length / 10))
-            })
+                    },
+                    headers: {
+                        Authorization: `Bearer ${getStoreAdminToken}`
+                    },
+                    method: 'get'
+                }).then((result) => {
+                    console.log('salesmen', result.data);
+                    setCustomerGetData(result.data)
+                    setAllData(result.data)
+                    setStoreData(result.data.slice(0, 10))
+                    setNumberOfPages(Math.ceil(result.data.length / 10))
+                })
+            }
         }
-    }, [getStoreAdminToken, currentPage, pageSize])
+        // const accessToken = getStoreAdminToken?.tokens?.access;
+
+
+    }, [getStoreAdminToken])
 
     const handlePrevPage = () => {
         if (currentPage > 1) {
@@ -75,7 +88,8 @@ const DashboardCustomerData = () => {
         console.log('click');
         console.log('pagecount3', data1.selected);
         const data = allData.slice(data1.selected * 10, (data1.selected + 1) * 10)
-        setStoreData(data)
+        setStoreData(data.slice(0, 10))
+        setNumberOfPages(Math.ceil(data.length / 10))
     };
 
     // const handleDelete = (e, id) => {
@@ -95,13 +109,24 @@ const DashboardCustomerData = () => {
 
     //     })
     // }
+
+    const handler = (val) => {
+        let date = moment(val).format('YYYY-MM-DD')
+        console.log('date', date, val);
+        const data = allData.filter((value) => {
+            let date1 = moment(value.date).format('YYYY-MM-DD')
+            return moment(date).isSame(date1)
+
+        })
+        setStoreData(data)
+    }
     return (
 
         <>
             <section className={`Dashboard-wrapper`}>
                 {/* <!-- dashboard header section  --> */}
                 {/* <!-- dashboard header section  --> */}
-                <DashbaordHeader />
+                <DashbaordHeader fun={handler} />
                 {/* <!-- Dashbaord card section  --> */}
                 <DashboardCard />
                 {/* <!-- Dashboard Charts Section  --> */}
@@ -120,9 +145,6 @@ const DashboardCustomerData = () => {
                                     <th>Product Choice</th>
                                     <th>Sales Person Name</th>
                                     <th>Description</th>
-                                    <td>Action</td>
-
-
                                 </tr>
                             </thead>
                             <tbody>

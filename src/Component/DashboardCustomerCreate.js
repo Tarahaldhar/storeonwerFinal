@@ -18,8 +18,8 @@ const DashboardCustomerCreate = () => {
 
     const [apiResData, setApiResDataa] = useState([])// sales register
     const [selectedDate, setDate] = useState(null)// for select calender
-    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin)
-    console.log('storeadminlogin', getStoreAdminToken);
+    const getStoreAdminToken = useSelector(state => state?.salesToken?.salestoken?.access)
+    console.log('salestoken', getStoreAdminToken);
 
     const [customerRegister, setCustomerRegister] = useState({
         name: "", email: "", phone_number: "",
@@ -34,14 +34,7 @@ const DashboardCustomerCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Get the access token from the Redux store
-            const accessToken = getStoreAdminToken?.tokens?.access;
-            // Check if the access token exists
-            if (!accessToken) {
-                alert("Access token not available. Please log in.");
-                return;
-            }
-            console.log('token', location.state.token);
+
             const response = await axios.post(
                 'https://thewiseowl.pythonanywhere.com/customer/register/',
                 {
@@ -57,15 +50,14 @@ const DashboardCustomerCreate = () => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${location.state.token}`
+                        Authorization: `Bearer ${getStoreAdminToken}`
                     }
                 }
             );
             console.log('response', response.data);
             const token = response.data.accessToken;
-            localStorage.setItem('token', token);
             setApiResDataa(response.data)
-            toast("Login successfully", { autoClose: 2000 })
+            toast("Register successfully", { autoClose: 2000 })
             setTimeout(() => {
                 navigate('/customer-data', { state: { selectProduct, customerRegister, salespersonname } })
 
@@ -101,7 +93,7 @@ const DashboardCustomerCreate = () => {
 
                     <div class="table-inner-content table-responsive">
 
-                        <form className='sales-register-create w-75'>
+                        <form className='sales-register-create w-100 w-md-75 '>
 
                             <h5>Customer Regsitration</h5>
                             <div className="row">

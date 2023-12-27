@@ -200,7 +200,7 @@ aside.left-sidebar.active {
 }
 /* Data table  */
 .table-data-wrapper {
-  padding: 20px 30px;
+  padding: 14px 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background: #fff;
   margin: 20px;
@@ -216,7 +216,17 @@ aside.left-sidebar.active {
     display: block;
     position: fixed;
     width: 50%;
+    left: -48%;
+    z-index: 999;
   }
+
+  .Dashboard-wrapper header .breadcrumb ul {
+    display: flex;
+    gap: 1rem;
+    height: 10px;
+    margin-left: 180px;
+  }
+
   .Dashboard-wrapper {
     padding: 0;
   }
@@ -230,8 +240,8 @@ aside.left-sidebar.active {
     margin-bottom: 1rem;
   }
   aside.left-sidebar.active {
-    left: -48%;
-    background: transparent;
+    left: 0%;
+
     display: block;
   }
   .toggle-icon-dashboard {
@@ -259,6 +269,9 @@ aside.left-sidebar.active {
   }
   .breadcrumb {
     margin-bottom: 10px !important;
+  }
+  .sales-register-create.w-75 {
+    width: 100% !important;
   }
 }
 .owlimg {

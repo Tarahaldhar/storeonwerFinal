@@ -7,7 +7,7 @@ const SalesLogin = () => {
         <>
             <main>
                 <section class="main-dashboard">
-                    <Sidebarr />
+
                     <SalesPersonLogin />
                 </section>
             </main>

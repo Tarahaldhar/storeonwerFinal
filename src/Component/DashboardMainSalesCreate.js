@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import './DashboardMainSalesCreate.css';
-
 import DashbaordHeader from './DashbaordHeader';
 import DashboardCard from './DashboardCard';
+import { ToastContainer, toast } from 'react-toastify';
+import { actionCreators } from '../Store/SalesAuthToken/StoreAdminAction';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const DashboardMainSalesCreate = () => {
+    const navigate = useNavigate()
     const [apiResData, setApiResDataa] = useState([])// sales register
-
-    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin)
+    const dispatch = useDispatch()
+    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin.access)
     console.log('storeadminlogin', getStoreAdminToken);
 
     const [salesRegister, setSalesRegister] = useState({
@@ -26,13 +30,7 @@ const DashboardMainSalesCreate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Get the access token from the Redux store
-            const accessToken = getStoreAdminToken?.tokens?.access;
-            // Check if the access token exists
-            if (!accessToken) {
-                alert("Access token not available. Please log in.");
-                return;
-            }
+
             const response = await axios.post(
                 'https://thewiseowl.pythonanywhere.com/salesperson/create/',
                 {
@@ -42,15 +40,19 @@ const DashboardMainSalesCreate = () => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`
+                        Authorization: `Bearer ${getStoreAdminToken}`
                     }
                 }
             );
             console.log('response', response.data);
-            const token = response.data.accessToken;
-            localStorage.setItem('token', token);
+            const token = response.data.tokens;
             setApiResDataa(response.data)
-            alert("Sales person successfully signup")
+            dispatch(actionCreators.salesToken(token))
+            toast("Register successfully", { autoClose: 2000 })
+            setTimeout(() => {
+                navigate('/sales-login')
+
+            }, 2000)
             // navigate('/customerreview')
         } catch (error) {
             alert("Failed to sign up");
@@ -61,6 +63,7 @@ const DashboardMainSalesCreate = () => {
     return (
 
         <>
+            <ToastContainer />
             <section className={`Dashboard-wrapper`}>
                 {/* <!-- dashboard header section  --> */}
                 <DashbaordHeader />

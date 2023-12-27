@@ -1,0 +1,1 @@
+export const salesToken = "Sales_Token";
