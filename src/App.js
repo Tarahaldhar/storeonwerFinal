@@ -13,6 +13,9 @@ import SalesPersonLogin from './Component/SalesPersonLogin';
 import SalesLogin from './Page/SalesLogin';
 import CustomerRegister from './Page/CustomerRegister';
 import CustomerData from './Page/CustomerData';
+import DashboardChart from './Component/DashboardChart';
+import CustomerDateByOwner from './Page/CustomerDateByOwner';
+
 function App() {
   return (
     <div className="App">
@@ -26,9 +29,11 @@ function App() {
         <Route path='/admin' element={<DashboardAdmin />} />
         <Route path='/sales-data' element={<SalesData />} />
         <Route path='/sales-register' element={<SalesRegister />} />
-        <Route path='/sales-login' element={<SalesLogin />} />
+        <Route exact path='/sales-login' element={<SalesLogin />} />
         <Route path='/customer-register' element={<CustomerRegister />} />
         <Route path='/customer-data' element={<CustomerData />} />
+        <Route path='/dashbaord-chart' element={<DashboardChart />} />
+        <Route path='/owner-customer-data' element={<CustomerDateByOwner />} />
       </Routes>
 
     </div>

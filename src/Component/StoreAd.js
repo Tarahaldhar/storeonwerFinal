@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import './StoreAd.css';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { actionCreators } from '../Store/StoreAdminAuth/StoreAdminAction';
 import { ToastContainer, toast } from 'react-toastify';
+import { actionCreators as SidebarAction } from '../Store/SidebarComponent/SidebarAction';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 import Sidebar from './NewAdminPanel/Sidebar';
 
 const StoreAd = () => {
@@ -22,12 +26,28 @@ const StoreAd = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(actionCreators.masterStoreAdmin(storeLogin))
-    toast("Login successfully", { autoClose: 2000 })
+    axios({
+      url: "https://thewiseowl.pythonanywhere.com/storeowner/login/",
+      data: {
 
-    setTimeout(() => {
-      navigate('/admin')
-    }, 2000)
+        "email": storeLogin?.email,
+        "password": storeLogin?.password
+      },
+      method: "post"
+    }).then((res) => {
+      console.log('token', res?.data?.tokens);
+      toast.success("Login successfully")
+      dispatch(actionCreators.masterStoreAdmin(res.data.tokens))
+      dispatch(SidebarAction.sidebartype('owner'))
+      setTimeout(() => {
+        navigate('/admin')
+      }, 2000)
+
+    }).catch((error) => {
+      toast.error("Login fail")
+      console.log('error', error);
+    })
+
   }
   return (
     <>

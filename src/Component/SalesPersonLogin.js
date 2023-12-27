@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import './DashboardMainSalesCreate.css';
+import { actionCreators } from '../Store/SalesAuthToken/StoreAdminAction';
+import { actionCreators as SidebarAction } from '../Store/SidebarComponent/SidebarAction';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,9 +32,9 @@ const SalesPersonLogin = () => {
     const navigate = useNavigate()
     const [apiResData, setApiResDataa] = useState([])// sales register
     const [selectedDate, setDate] = useState(null)// for select calender
-    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin)
+    const getStoreAdminToken = useSelector(state => state?.salesLogin?.salestoken?.access)
     console.log('storeadminlogin', getStoreAdminToken);
-
+    const dispatch = useDispatch()
     const [salesLogin, setSalesLogin] = useState({
         name: "", password: ""
     })
@@ -46,13 +48,7 @@ const SalesPersonLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Get the access token from the Redux store
-            const accessToken = getStoreAdminToken?.tokens?.access;
-            // Check if the access token exists
-            if (!accessToken) {
-                alert("Access token not available. Please log in.");
-                return;
-            }
+
             const response = await axios.post(
                 'https://thewiseowl.pythonanywhere.com/salesperson/login/',
                 {
@@ -60,24 +56,23 @@ const SalesPersonLogin = () => {
                     name: salesLogin.name,
                     password: salesLogin.password,
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                }
+
             );
             console.log('response', response.data);
-            const token = response.data.tokens.access;
-            localStorage.setItem('token', token);
+            const token = response.data.tokens;
             setApiResDataa(response.data)
+            dispatch(actionCreators.salesToken(token))
+            dispatch(SidebarAction.sidebartype('sales-admin'))
+
             // toast.success("Login successfully", { duration: 4000 })
             toast("Login successfully", { autoClose: 2000 })
             setTimeout(() => {
-                navigate('/customer-register', { state: { name: salesLogin.name, token } })
+                navigate('/admin', { state: { name: salesLogin.name, token } })
 
             }, 2000)
         } catch (error) {
-            alert("Failed to sign up");
+
+            toast.error("Login fail", { autoClose: 2000 })
             console.log('error', error);
         }
     };
@@ -86,34 +81,37 @@ const SalesPersonLogin = () => {
 
         <>
             <ToastContainer />
-            <section className={`Dashboard-wrapper`}>
-                {/* <!-- dashboard header section  --> */}
-                {/* <!-- dashboard header section  --> */}
-                <DashbaordHeader />
-                {/* <!-- Dashbaord card section  --> */}
+            <section className='bg-img-page' >
+
+
+
+                {/* <DashbaordHeader />
+            
                 <DashboardCard />
-                {/* <!-- Dashboard Charts Section  --> */}
-                {/* <!-- Dashboard Charts Section  --> */}
-                <div class="table-data-wrapper">
+                */}
 
-                    <div class="table-inner-content table-responsive">
 
-                        <form className='sales-register-create'>
+                <form className='sales-register-create' style={{ marginTop: '50px' }}>
 
-                            <h5>Sales Login</h5>
-                            <input type="text" id="name" name='name' value={salesLogin.name} onChange={(e) => handleInput(e)} placeholder='Name' />
+                    <h3 style={{
+                        fontSize: '28px', textAlign: 'left', fontFamily: 'PT Sans',
+                    }}>
+                        Welcome! <b className='headingWelcomeBack'></b>
+                        <strong><span style={{ color: '#000', fontWeight: '500', fontSize: '12px', marginTop: '-20px', textAlign: 'left' }}>Sign in to access <b style={{ color: '#6442c0' }}>admin dashboard</b></span></strong>
+                    </h3>
+                    <input type="text" id="name" name='name' value={salesLogin.name} onChange={(e) => handleInput(e)} placeholder='Name' />
 
-                            <input type="password" id="password" name='password' value={salesLogin.password} onChange={(e) => handleInput(e)} placeholder='Password' />
-                            <div className='checkboxText'>
-                                <input type="checkbox" value="lsRememberMe" id="rememberMe" /> <label style={{ fontSize: '12px' }} for="rememberMe">Remember me</label><br />
+                    <input type="password" id="password" name='password' value={salesLogin.password} onChange={(e) => handleInput(e)} placeholder='Password' />
+                    <div className='checkboxText'>
+                        <input type="checkbox" value="lsRememberMe" id="rememberMe" /> <label style={{ fontSize: '12px' }} for="rememberMe">Remember me</label><br />
 
-                            </div>
-                            <button className="login-button-admin" onClick={(e) => handleSubmit(e)}>Login</button>
-
-                        </form>
                     </div>
-                </div>
-            </section>
+                    <button className="login-button-admin" onClick={(e) => handleSubmit(e)}>Login</button>
+
+                </form>
+
+            </section >
+
         </>
     )
 }

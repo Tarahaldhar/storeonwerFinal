@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DashbaordHeader from './DashbaordHeader';
 import DashboardCard from './DashboardCard';
+import DashboardChart from './DashboardChart';
 
 const DashboardMainContent = () => {
     const [showSidebar, setShowSidebar] = useState(false)
@@ -19,15 +20,17 @@ const DashboardMainContent = () => {
                 {/* <!-- Dashboard Charts Section  --> */}
                 <div class="dashboard-charts-wrapper">
                     <div class="top-section">
-                        <div class="title">
-                            <h3 class="mb-0">Customer Habits</h3>
+                        <div class="title" style={{ textAlign: 'left', margin: '20px' }}>
+                            <h5 class="mb-0">Customer Habits</h5>
                             <p class="text-gray">Track your Customer behavior</p>
                         </div>
                     </div>
                     <div class="cart-wrapper">
-                        <canvas id="myChart"></canvas>
+                        <DashboardChart />
+                        {/* <canvas id="myChart"></canvas> */}
                     </div>
                 </div>
+
             </section>
         </>
     )

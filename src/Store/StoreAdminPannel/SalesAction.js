@@ -20,7 +20,7 @@ export const actionCreators = {
             }
         }).then((result) => {
             dispatch({ type: SalesGetData, payload: result.data })
-        }).catch((error)=>{
+        }).catch((error) => {
             console.log('error', error);
         })
     }

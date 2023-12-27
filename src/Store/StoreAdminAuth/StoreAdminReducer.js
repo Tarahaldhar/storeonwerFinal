@@ -1,6 +1,6 @@
 import { masterStoreLogin } from './StoreAdminConstant';
 let initialState = {
-    storeAdmin: [],
+    storeAdmin: {},
 }
 export const reducer = (state, action) => {
     state = state || initialState
