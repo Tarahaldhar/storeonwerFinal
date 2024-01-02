@@ -7,8 +7,7 @@ import { actionCreators } from '../Store/StoreAdminAuth/StoreAdminAction';
 import { ToastContainer, toast } from 'react-toastify';
 import { actionCreators as SidebarAction } from '../Store/SidebarComponent/SidebarAction';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import { actionCreators as customerName } from '../Store/SalesAuthToken/StoreAdminAction';
 import Sidebar from './NewAdminPanel/Sidebar';
 
 const StoreAd = () => {
@@ -39,6 +38,8 @@ const StoreAd = () => {
       toast.success("Login successfully")
       dispatch(actionCreators.masterStoreAdmin(res.data.tokens))
       dispatch(SidebarAction.sidebartype('owner'))
+      dispatch(customerName.setCustomerName(res.data.username))
+
       setTimeout(() => {
         navigate('/admin')
       }, 2000)

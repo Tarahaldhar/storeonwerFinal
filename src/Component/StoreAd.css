@@ -164,3 +164,10 @@ button#sidebarCollapse {
   left: -42px;
   top: 10px;
 }
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation3.css-3su884-MuiPaper-root {
+  background-color: none !important;
+  box-shadow: none !important;
+}
+.css-3su884-MuiPaper-root {
+  background-color: #f7f7f7 !important;
+}

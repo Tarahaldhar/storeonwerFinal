@@ -1,17 +1,17 @@
 import React from 'react'
 import Sidebarr from '../Component/Sidebarr';
-import CustomerDataRecieveByOwner from '../Component/CustomerDataRecieveByOwner';
-const CustomerDateByOwner = () => {
+import CDataBySales from '../Component/CDataBySales';
+const CustomerDataBySales = () => {
     return (
         <>
             <main>
                 <section class="main-dashboard">
                     <Sidebarr />
-                    <CustomerDataRecieveByOwner />
+                    <CDataBySales />
                 </section>
             </main>
         </>
     )
 }
 
-export default CustomerDateByOwner
+export default CustomerDataBySales

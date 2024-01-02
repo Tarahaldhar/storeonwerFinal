@@ -63,11 +63,11 @@ const SalesPersonLogin = () => {
             setApiResDataa(response.data)
             dispatch(actionCreators.salesToken(token))
             dispatch(SidebarAction.sidebartype('sales-admin'))
-
+            dispatch(actionCreators.setCustomerName(response.data.username))
             // toast.success("Login successfully", { duration: 4000 })
             toast("Login successfully", { autoClose: 2000 })
             setTimeout(() => {
-                navigate('/admin', { state: { name: salesLogin.name, token } })
+                navigate('/customer-register', { state: { name: salesLogin.name, token } })
 
             }, 2000)
         } catch (error) {

@@ -14,7 +14,6 @@ import SalesLogin from './Page/SalesLogin';
 import CustomerRegister from './Page/CustomerRegister';
 import CustomerData from './Page/CustomerData';
 import DashboardChart from './Component/DashboardChart';
-import CustomerDateByOwner from './Page/CustomerDateByOwner';
 
 function App() {
   return (
@@ -33,7 +32,6 @@ function App() {
         <Route path='/customer-register' element={<CustomerRegister />} />
         <Route path='/customer-data' element={<CustomerData />} />
         <Route path='/dashbaord-chart' element={<DashboardChart />} />
-        <Route path='/owner-customer-data' element={<CustomerDateByOwner />} />
       </Routes>
 
     </div>

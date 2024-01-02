@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactPaginate from 'react-paginate';
-import * as XLSX from 'xlsx';
 import moment from 'moment';
+import * as XLSX from 'xlsx';
+
 import { FaCalendarAlt } from 'react-icons/fa';
 import axios from 'axios';
 import DashbaordHeader from './DashbaordHeader';
@@ -26,7 +27,8 @@ function CustomInput({ value, onClick }) {
         </div>
     )
 }
-const DashboardCustomerData = (props) => {
+
+const DashboardVisitorData = (props) => {
     const [showHeader, setShowHeader] = useState(true)
     const location = useLocation()
     const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin?.access)
@@ -46,13 +48,13 @@ const DashboardCustomerData = (props) => {
             console.log('salesmen', location.state.data);
             setCustomerGetData(location.state.data)
             setAllData(location.state.data)
-            setStoreData(location.state.data.slice(0, 10))
-            setNumberOfPages(Math.ceil(location.state.data.length / 10))
+            setStoreData(location.state.data.slice(0, 4))
+            setNumberOfPages(Math.ceil(location.state.data.length / 4))
         } else {
             if (getStoreAdminToken) {
                 console.log('salestoken', getStoreAdminToken);
                 axios({
-                    url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/shopping/`,
+                    url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/visitor/`,
                     data: {
 
                     },
@@ -64,8 +66,8 @@ const DashboardCustomerData = (props) => {
                     console.log('salesmen', result.data);
                     setCustomerGetData(result.data)
                     setAllData(result.data)
-                    setStoreData(result.data.slice(0, 10))
-                    setNumberOfPages(Math.ceil(result.data.length / 10))
+                    setStoreData(result.data.slice(0, 15))
+                    setNumberOfPages(Math.ceil(result.data.length / 15))
                 })
             }
         }
@@ -97,7 +99,7 @@ const DashboardCustomerData = (props) => {
         if (getSalesTokenByStore) {
             console.log('salestoken', getSalesTokenByStore);
             axios({
-                url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/shopping/`,
+                url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/visitor/`,
                 data: {
 
                 },
@@ -109,8 +111,8 @@ const DashboardCustomerData = (props) => {
                 console.log('salesmen', result.data.customers);
                 setCustomerGetData(result.data.customers)
                 setAllData(result.data.customers)
-                setStoreData(result.data.customers.slice(0, 4))
-                setNumberOfPages(Math.ceil(result.data.customers.length / 4))
+                setStoreData(result.data.customers.slice(0, 14))
+                setNumberOfPages(Math.ceil(result.data.customers.length / 15))
             })
         }
     }, [getSalesTokenByStore])
@@ -134,8 +136,6 @@ const DashboardCustomerData = (props) => {
         setStoreData(data)
     }
 
-
-
     const handleExcel = (e) => {
         const data = allData.map((val) => {
             return [val.id, val.name, val.email, val.phone_number, val.salesperson_name, val.visit_type, val.description]
@@ -149,24 +149,23 @@ const DashboardCustomerData = (props) => {
         XLSX.writeFile(wv, 'sheet.xlsx')
     }
     return (
-
         <>
             <section className={`Dashboard-wrapper`}>
                 {/* <!-- dashboard header section  --> */}
                 {/* <!-- dashboard header section  --> */}
-                {showHeader &&
+                {/* {showHeader &&
                     <>
                         <DashbaordHeader fun={handler} />
                         <DashboardCard />
                     </>
-                }
+                } */}
 
                 {/* <!-- Dashboard Charts Section  --> */}
                 {/* <!-- Dashboard Charts Section  --> */}
                 {/* <!-- Dashboard Charts Section  --> */}
                 <div class="table-data-wrapper dashboard-charts-wrapper z1919">
                     <div className='title-customerdata-exportbtn'>
-                        <h5 style={{ textAlign: 'left', paddingLeft: '10px', padding: '10px', marginTop: '20px' }}>Customer Data</h5>
+                        <h5 style={{ textAlign: 'left', paddingLeft: '10px', padding: '10px', marginTop: '20px' }}>Visitor Data</h5>
                         <button className='customer-data-btn-download' onClick={() => handleExcel()}>Export CVS</button>
                     </div>
                     <div class="table-inner-content table-responsive">
@@ -228,4 +227,4 @@ const DashboardCustomerData = (props) => {
     )
 }
 
-export default DashboardCustomerData
+export default DashboardVisitorData

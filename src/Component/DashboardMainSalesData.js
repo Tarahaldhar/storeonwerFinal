@@ -135,8 +135,8 @@ const DashboardMainSalesData = () => {
                         </table>
 
                         <ReactPaginate
-                            previousLabel={<i style={{ color: '#cc0033' }} className="fas fa-angle-left"></i>}
-                            nextLabel={<i style={{ color: '#cc0033' }} className="fas fa-angle-right"></i>}
+                            previousLabel={<i style={{ color: '#6e46c9' }} className="fas fa-angle-left"></i>}
+                            nextLabel={<i style={{ color: '#6e46c9' }} className="fas fa-angle-right"></i>}
                             breakLabel={'...'}
                             pageCount={numberOfPages}
                             marginPagesDisplayed={2}

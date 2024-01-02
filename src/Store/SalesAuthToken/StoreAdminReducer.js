@@ -1,6 +1,7 @@
-import { salesToken } from './StoreAdminConstant';
+import { salesToken, salesNameCustomer } from './StoreAdminConstant';
 let initialState = {
     salestoken: {},
+    customerName: ''
 }
 export const reducer = (state, action) => {
     state = state || initialState
@@ -8,6 +9,12 @@ export const reducer = (state, action) => {
     if (action.type === salesToken) {
         return {
             ...state, salestoken: action.payload
+        }
+    }
+
+    if (action.type === salesNameCustomer) {
+        return {
+            ...state, customerName: action.payload
         }
     }
     return state

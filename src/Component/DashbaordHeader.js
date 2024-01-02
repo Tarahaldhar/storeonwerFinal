@@ -3,9 +3,13 @@ import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaCalendarAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../Store/SidebarComponent/SidebarAction';
 import { RxHamburgerMenu } from "react-icons/rx";
+import { IoIosArrowForward } from "react-icons/io";
+
+
 
 function CustomInput({ value, onClick }) {
     return (
@@ -24,6 +28,8 @@ function CustomInput({ value, onClick }) {
 
 const DashbaordHeader = (props) => {
     const dispatch = useDispatch()
+    const salesPersonName = useSelector(state => state.salesToken.customerName)
+
     const getToggleSidebar = useSelector(state => state.toggle.sidebarToggle)
     console.log(props);
     const [selectedDate, setDate] = useState(null)// for select calender
@@ -45,15 +51,15 @@ const DashbaordHeader = (props) => {
                         <div class="breadcrumb mb-0">
                             <ul class="list-unstyled">
                                 <li onClick={(e) => handleData(e)}><a> <RxHamburgerMenu /></a></li>
-                                <li><a href="">Home</a></li>
-                                <li><a href="">Admin</a></li>
+                                <li><Link to="/admin">Home</Link> <IoIosArrowForward /></li>
+                                <li><Link to="/admin">Admin</Link></li>
                             </ul>
                         </div>
-                        {/* <h2 class="page-title mb-0">Admin Dashboard</h2> */}
+                        <h4 class="page-title mb-0">Admin Dashboard</h4>
                     </div>
                     <div class="top-right ">
                         {/* -------------search filter date header---------------------- */}
-                        {window.location.pathname === '/customer-data' && <label><DatePicker selected={selectedDate} onChange={date => handleDate(date)} customInput={<CustomInput />} /></label>}
+                        {(window.location.pathname === '/customer-data') && <label><DatePicker selected={selectedDate} onChange={date => handleDate(date)} customInput={<CustomInput />} /></label>}
                         {/* -------------------search filter date header end--------------------- */}
                         {/* <div class="date-picker-wrap">December 2023</div> */}
 
@@ -63,8 +69,8 @@ const DashbaordHeader = (props) => {
                                 src="https://cdn5.vectorstock.com/i/1000x1000/51/99/icon-of-user-avatar-for-web-site-or-mobile-app-vector-3125199.jpg"
                                 alt=""
                                 class="avatar-img"
-                            />
-                            <span class="user-name">Hello, User!</span>
+                            />&nbsp; &nbsp;
+                            <span class="user-name">Hello {salesPersonName}</span>
                         </div>
                     </div>
                 </div>
