@@ -7,12 +7,14 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { actionCreators } from '../Store/StoreAdminPannel/SalesAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CustomerRegisterNotifyModal from './CustomerRegisterNotifyModal';
 const DashboardCustomerCreate = () => {
+    const salesPersonName = useSelector(state => state.salesToken.customerName)
     const location = useLocation()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [salespersonname, setSalesPersonName] = useState() // select option
-
+    const [showModal, setShowModal] = useState(false)
     const [selectProduct, setSelectProduct] = useState()
     const [optionShopping, setOptionShopping] = useState('')// call option below jsx
 
@@ -31,8 +33,8 @@ const DashboardCustomerCreate = () => {
         })
         console.log('input', customerRegister);
     }
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
+
         try {
 
             const response = await axios.post(
@@ -44,7 +46,7 @@ const DashboardCustomerCreate = () => {
                     phone_number: customerRegister.phone_number,
                     product_choice: selectProduct,
                     description: customerRegister.description,
-                    salesperson_name: location.state.name,
+                    salesperson_name: salesPersonName,
                     visit_type: optionShopping
 
                 },
@@ -59,7 +61,7 @@ const DashboardCustomerCreate = () => {
             setApiResDataa(response.data)
             toast("Register successfully", { autoClose: 2000 })
             setTimeout(() => {
-                navigate('/customer-data', { state: { selectProduct, customerRegister, salespersonname } })
+                navigate('/sales-login', { state: { selectProduct, customerRegister, salespersonname } })
 
             }, 2000)
             // navigate('/viewcustomer', {
@@ -79,21 +81,31 @@ const DashboardCustomerCreate = () => {
         console.log(e);
         setOptionShopping(e.target.value)
     }
+    const handleClose = () => {
+
+        setShowModal(false)
+    }
+    const handleOpen = (e) => {
+        e.preventDefault()
+        setShowModal(true)
+    }
     return (
 
         <>
             <ToastContainer />
-            <section className={`Dashboard-wrapper`}>
+            <section className={`Dashboard-wrapper bg-img-page`}>
+                {showModal && <CustomerRegisterNotifyModal customerRegister={customerRegister} optionShopping={optionShopping} salesPersonName={salesPersonName} handleClose={handleClose} handleSubmit={handleSubmit} />
+                }
                 {/* <!-- dashboard header section  --> */}
-                <DashbaordHeader />
+                {/* <DashbaordHeader /> */}
                 {/* <!-- Dashbaord card section  --> */}
-                <DashboardCard />
+                {/* <DashboardCard /> */}
                 {/* <!-- Dashboard Charts Section  --> */}
-                <div class="table-data-wrapper">
+                <div class="table-data-wrapper" >
 
                     <div class="table-inner-content table-responsive">
 
-                        <form className='sales-register-create w-100 w-md-75 '>
+                        <form className='sales-register-create '>
 
                             <h5>Customer Regsitration</h5>
                             <div className="row">
@@ -121,12 +133,13 @@ const DashboardCustomerCreate = () => {
                                             <option value="XBoom"> XBoom </option>
                                             <option value="Tone Free">Tone Free </option>
                                             <option value="Styler ">Styler  </option>
+                                            <option value="Styler ">Other  </option>
 
                                         </select>
                                         <span id="Product_e" className="text-danger font-weight-bold"></span>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-6" >
                                     <div class="form-group mt-3">
                                         <textarea name='description' value={customerRegister.description} onChange={(e) => handleInput(e)} placeholder='Description' class="form-control" id="exampleFormControlTextarea1" rows="3" />
                                     </div>
@@ -141,16 +154,16 @@ const DashboardCustomerCreate = () => {
                                         <span id="Product_e" className="text-danger font-weight-bold"></span>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
+                                {/* <div className="col-md-6">
                                     <div className='checkboxText'>
                                         <input type="checkbox" value="lsRememberMe" id="rememberMe" /> <label style={{ fontSize: '12px' }} for="rememberMe">Remember me</label><br />
 
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
 
-                            <button className="login-button-admin" onClick={(e) => handleSubmit(e)}>Register</button>
+                            <button className="login-button-admin" onClick={(e) => handleOpen(e)}>Register</button>
 
                         </form>
                     </div>

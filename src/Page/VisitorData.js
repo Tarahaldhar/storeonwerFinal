@@ -1,21 +1,18 @@
 import React from 'react';
-import './Dashboard.css';
 import Sidebarr from '../Component/Sidebarr';
-import DashboardMainContent from '../Component/DashboardMainContent';
-import { useLocation } from 'react-router-dom';
+import DashboardVisitorData from '../Component/DashboardVisitorData';
 
-const DashboardAdmin = () => {
+const VisitorData = () => {
     return (
         <>
             <main>
                 <section class="main-dashboard">
                     <Sidebarr />
-                    <DashboardMainContent />
+                    <DashboardVisitorData />
                 </section>
             </main>
-
         </>
     )
 }
 
-export default DashboardAdmin
+export default VisitorData

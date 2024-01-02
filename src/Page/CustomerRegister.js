@@ -6,7 +6,7 @@ const CustomerRegister = () => {
         <>
             <main>
                 <section class="main-dashboard">
-                    <Sidebarr />
+                    {/* <Sidebarr /> */}
                     <DashboardCustomerCreate />
                 </section>
             </main>

@@ -109,7 +109,7 @@ const ViewCustomerData = () => {
                             </ul>
                             <span className="navbar-text">
                                 <Link to={'/customerjorney'}>
-                                    <i style={{ color: '#cc0033' }} className="fa-solid fa-backward" navigate='/'></i>
+                                    <i style={{ color: '#' }} className="fa-solid fa-backward" navigate='/'></i>
                                 </Link>
                             </span>
                         </div>
@@ -148,8 +148,8 @@ const ViewCustomerData = () => {
 
 
                 <ReactPaginate
-                    previousLabel={<i style={{ color: '#cc0033' }} className="fas fa-angle-left"></i>}
-                    nextLabel={<i style={{ color: '#cc0033' }} className="fas fa-angle-right"></i>}
+                    previousLabel={<i style={{ color: '#6e46c9' }} className="fas fa-angle-left"></i>}
+                    nextLabel={<i style={{ color: '#6e46c9' }} className="fas fa-angle-right"></i>}
                     breakLabel={'...'}
                     pageCount={numberOfPages}
                     marginPagesDisplayed={2}

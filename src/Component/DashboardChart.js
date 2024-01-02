@@ -30,9 +30,8 @@ const data = [
 const DashboardChart = () => {
     return (
         <>
-            <Paper elevation={3} style={{ padding: 30, marginBottom: 30 }}>
+            <Paper elevation={3} style={{ padding: 0, marginBottom: 0, fontSize: '10px' }}>
                 <Typography variant="h6" gutterBottom>
-
                 </Typography>
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>

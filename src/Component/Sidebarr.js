@@ -1,14 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { RiPresentationFill } from "react-icons/ri";
+import { actionCreators as salesToken } from '../Store/SalesAuthToken/StoreAdminAction';
+import { actionCreators as adminToken } from '../Store/StoreAdminAuth/StoreAdminAction';
+
 const Sidebar = (props) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin?.access)
+  const getSalesTokenByStore = useSelector(state => state?.salesToken?.salestoken?.access)
   const getToggleSidebar = useSelector(state => state.toggle.sidebarToggle)
   const [salesSidebar, setSalesSidebar] = useState(true)
   const [showSidebar, setShowSidebar] = useState(false)
   const sidebarType = useSelector(state => state.toggle.sidebarType)
   const handleToggle = () => {
     setShowSidebar(!showSidebar)
+  }
+  const handleLogout = () => {
+    if (sidebarType === 'owner') {
+      dispatch(adminToken.masterStoreAdmin())
+      navigate('/')
+    }
+    else {
+      dispatch(salesToken.salesToken())
+      navigate('/sales-login')
+    }
   }
   return (
     <>
@@ -21,12 +38,12 @@ const Sidebar = (props) => {
           <menu>
             <ul className="list-unstyled ">
               <li className="active">
-                <a
-                  href=""
+                <Link
+                  to="/admin"
 
                 >
                   <i className="fa-solid fa-clapperboard"></i> <span class="list">Dashboard</span>
-                </a>
+                </Link>
 
               </li>
               <li className="active">
@@ -97,11 +114,12 @@ const Sidebar = (props) => {
 
         <div class="sidebar-bottom">
           <div className='owlimg'>
-            <ul style={{ paddingLeft: '0px !important' }}><p style={{ fontSize: '18px', position: 'relative', top: '68px' }}> Hi, User</p><img src='img/profile.jpeg' style={{ width: '100px', height: 'auto' }} /><br /></ul>
-            <img src='img/owl2.jpeg' style={{ height: 'auto' }} />
+            <ul style={{ paddingLeft: '0px !important' }}><p style={{ fontSize: '14px', position: 'relative', top: '38px' }}> Hi, User</p>
+              <img className="message-sidebar" src='img/Message.png' style={{ width: '150px', height: 'auto' }} /></ul>
+            <img src='img/OWL.png' style={{ height: 'auto' }} />
           </div>
           <img src="images/sidebar-main-img.png" alt="" class="img-fluid" />
-          <button class="main-btn btn">Logout</button>
+          <button className="main-btn btn" onClick={() => handleLogout()}>Logout</button>
         </div>
       </aside>
       {/* <!-- Dashbaord Right Sidebar section   --> */}
