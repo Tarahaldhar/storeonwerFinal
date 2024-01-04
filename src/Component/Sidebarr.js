@@ -8,6 +8,7 @@ import { actionCreators as adminToken } from '../Store/StoreAdminAuth/StoreAdmin
 const Sidebar = (props) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [showSalesModal, setShowSalesModal] = useState(false)
   const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin?.access)
   const getSalesTokenByStore = useSelector(state => state?.salesToken?.salestoken?.access)
   const getToggleSidebar = useSelector(state => state.toggle.sidebarToggle)
@@ -27,21 +28,21 @@ const Sidebar = (props) => {
       navigate('/sales-login')
     }
   }
+  const handleAddSales = () => {
+
+  }
   return (
     <>
       {/* <!-- Dashbaord left Sidebar section   --> */}
       <span class="toggle-icon-dashboard" onClick={handleToggle}><i class="bi bi-list"></i></span>
       <aside class={`left-sidebar ${getToggleSidebar ? 'active' : ''}`}>
-
         <div class={`sidebar-top `}>
           <img src="img/logo.jpeg" alt="" class="img-fluid" />
           <menu>
             <ul className="list-unstyled ">
               <li className="active">
                 <Link
-                  to="/admin"
-
-                >
+                  to="/admin">
                   <i className="fa-solid fa-clapperboard"></i> <span class="list">Dashboard</span>
                 </Link>
 
@@ -59,7 +60,7 @@ const Sidebar = (props) => {
                   <ul className="collapse list-unstyled pt-2 pl-2" id="homeSubmenu">
                     <li>
                       <li>
-                        <Link to="/sales-register"><i class="fa-solid fa-plus"></i>&nbsp;<span class="list">Add sales candidate</span></Link>
+                        <Link to="/sales-register" onClick={() => handleAddSales()}><i class="fa-solid fa-plus"></i>&nbsp;<span class="list">Add sales candidate</span></Link>
                       </li>
                       <li>
                         <Link to="/customer-data"><i class="fa-solid fa-eye"></i>&nbsp;<span class="list">View customer</span></Link>
