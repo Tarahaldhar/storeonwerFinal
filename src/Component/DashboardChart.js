@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     BarChart,
     Bar,
@@ -9,6 +9,8 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import { Paper, Typography } from '@mui/material';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 // Sample data for the bar chart
@@ -28,6 +30,28 @@ const data = [
     // Add more data as needed
 ];
 const DashboardChart = () => {
+    const [graphData, setGraphData] = useState()
+    const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin?.access)
+
+    // useEffect(() => {
+    //     if (getStoreAdminToken) {
+    //         console.log('salestoken', getStoreAdminToken);
+    //         axios({
+    //             url: `https://thewiseowl.pythonanywhere.com/api/monthly-registration-count/`,
+    //             data: {
+
+    //             },
+    //             headers: {
+    //                 Authorization: `Bearer ${getStoreAdminToken}`
+    //             },
+    //             method: 'get'
+    //         }).then((result) => {
+    //             console.log('salesmen', result.data.customers);
+    //             setGraphData(result.data.customers)
+
+    //         })
+    //     }
+    // }, [getStoreAdminToken])
     return (
         <>
             <Paper elevation={3} style={{ padding: 0, marginBottom: 0, fontSize: '10px' }}>
