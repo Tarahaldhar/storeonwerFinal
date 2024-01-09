@@ -9,8 +9,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DashbaordHeader from './DashbaordHeader';
 import DashboardCard from './DashboardCard';
+import './DashboardMainSalesData';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import AddSalesModal from '../AddSalesModal';
 function CustomInput({ value, onClick }) {
     return (
         <div className='input-date-parent'>
@@ -26,12 +28,14 @@ function CustomInput({ value, onClick }) {
     )
 }
 const DashboardMainSalesData = () => {
+
     const navigate = useNavigate()
     const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin.access)
     const [selectedDate, setDate] = useState(null)// for select calender
     const [salesGetData, setSalesGetData] = useState([])
     const [allData, setAllData] = useState([])
     const [numberOfPages, setNumberOfPages] = useState(1)
+    const [showModal, setShowModal] = useState(false);
 
     // sales person api call 
     useEffect(() => {
@@ -97,27 +101,30 @@ const DashboardMainSalesData = () => {
         // setNumberOfPages(Math.ceil(data.length / 10))
     };
 
+
     return (
 
         <>
             <ToastContainer />
             <section className={`Dashboard-wrapper`}>
-                {/* <!-- dashboard header section  --> */}
-                {/* <!-- dashboard header section  --> */}
+
                 <DashbaordHeader />
-                {/* <!-- Dashbaord card section  --> */}
                 <DashboardCard />
-                {/* <!-- Dashboard Charts Section  --> */}
-                {/* <!-- Dashboard Charts Section  --> */}
-                <div class="table-data-wrapper">
-                    <h5>Sales Representive</h5>
-                    <div class="table-inner-content table-responsive">
-                        <table class="table">
+                <div className='buttom-parent-div-sales'>
+
+                    <Link to="/sales-register">
+                        <button className="button-30-add-sales" role="button" style={{ textAlign: 'right' }}>Add Sales</button>
+                    </Link>
+
+                </div>
+                <div className="table-data-wrapper">
+                    <h5 style={{ textAlign: 'left', paddingLeft: '10px', padding: '10px', marginTop: '20px' }}>Sales Representative</h5>
+                    <div className="table-inner-content table-responsive">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Name</th>
-
                                 </tr>
                             </thead>
                             <tbody>
@@ -125,12 +132,8 @@ const DashboardMainSalesData = () => {
                                     <tr>
                                         <td>{val.id}</td>
                                         <td style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }} onClick={(id) => handleCustomerDataBySales(val.name)}>{val.name}</td>
-
                                     </tr>
                                 ))}
-
-
-
                             </tbody>
                         </table>
 

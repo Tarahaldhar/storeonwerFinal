@@ -65,7 +65,7 @@ const DashboardVisitorData = (props) => {
                 }).then((result) => {
                     console.log('salesmen', result.data);
                     setCustomerGetData(result.data)
-                    setAllData(result.data)
+                    setAllData(result?.data)
                     setStoreData(result.data.slice(0, 15))
                     setNumberOfPages(Math.ceil(result.data.length / 15))
                 })
@@ -175,10 +175,10 @@ const DashboardVisitorData = (props) => {
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Phone number</th>
-                                    <th>Product Choice</th>
-                                    <th>Sales Person Name</th>
-                                    <th>Description</th>
+                                    <th>Phone Number</th>
+                                    <th>Visit Type</th>
+                                    <th>Sales Representative</th>
+                                    <th>Feedback</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -101,24 +101,24 @@ const DashboardCustomerCreate = () => {
                 {/* <!-- Dashbaord card section  --> */}
                 {/* <DashboardCard /> */}
                 {/* <!-- Dashboard Charts Section  --> */}
-                <div class="table-data-wrapper" >
+                <div class="table-data-wrapper-z123" >
 
                     <div class="table-inner-content table-responsive">
 
                         <form className='sales-register-create '>
 
-                            <h5>Customer Regsitration</h5>
+                            <h5>Customer Registration</h5>
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-12 col-xs-4">
                                     <input type="text" id="name" name='name' value={customerRegister.name} onChange={(e) => handleInput(e)} placeholder='Name' />
                                 </div>
-                                <div className="col-md-6 mb-2">
+                                <div className="col-md-12 col-xs-4 mb-2">
                                     <input type="email" id="email" name='email' value={customerRegister.email} onChange={(e) => handleInput(e)} placeholder='Email' />
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-12 col-xs-4">
                                     <input type="text" id="phone_number" name='phone_number' value={customerRegister.phone_number} onChange={(e) => handleInput(e)} placeholder='Mobile' />
                                 </div>
-                                <div className="col-md-6">
+                                {/* <div className="col-md-6">
                                     <div className="">
                                         <select name='Product' id="Product" className=" border-none" onChange={(e) => handleProductList(e)}>
                                             <option value="" disabled selected> Select product</option>
@@ -138,20 +138,22 @@ const DashboardCustomerCreate = () => {
                                         </select>
                                         <span id="Product_e" className="text-danger font-weight-bold"></span>
                                     </div>
-                                </div>
-                                <div className="col-md-6" >
-                                    <div class="form-group mt-3">
-                                        <textarea name='description' value={customerRegister.description} onChange={(e) => handleInput(e)} placeholder='Description' class="form-control" id="exampleFormControlTextarea1" rows="3" />
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
+                                </div> */}
+
+                                <div className="col-md-12 col-xs-4">
                                     <div className="">
                                         <select name='visit_type' id="visit_type" className=" border-none" onChange={(e) => handleShoppingType(e)}>
-                                            <option value="" disabled selected> Select option</option>
-                                            <option value="shopping"> shopping</option>
-                                            <option value="visitor">visitor </option>
+                                            <option value="" disabled selected> Select Visit Type</option>
+                                            <option value="shopping"> Shopper</option>
+                                            <option value="visitor">Visitor </option>
                                         </select>
                                         <span id="Product_e" className="text-danger font-weight-bold"></span>
+                                    </div>
+                                </div>
+
+                                <div className="col-md-12 col-xs-4" >
+                                    <div class="form-group mt-3">
+                                        <textarea name='description' value={customerRegister.description} onChange={(e) => handleInput(e)} placeholder='Feedback' class="form-control" id="exampleFormControlTextarea1" rows="3" />
                                     </div>
                                 </div>
                                 {/* <div className="col-md-6">

@@ -179,15 +179,19 @@ aside.left-sidebar.active {
   font-size: 20px;
   font-weight: 600;
   color: #404040;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
 }
 .dashbard-inner-card .middle-text span {
-  font-size: 30px;
+  font-size: 37px;
   font-weight: 700;
   font-family: poppins;
 }
 
 .dashboard-charts-wrapper {
   /* padding: 10px 20px; */
+  width: 100%;
   margin: 0 20px;
   border-radius: 25px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -224,6 +228,9 @@ aside.left-sidebar.active {
     width: 50%;
     left: -48%;
     z-index: 999;
+  }
+  .css-heipqt-MuiResponsiveChart-container {
+    width: auto !important;
   }
   .Dashboard-wrapper .piechart-parent {
     display: flex;
@@ -302,7 +309,7 @@ aside.left-sidebar.active {
   }
 }
 .owlimg {
-  float: left;
+  text-align: center !important;
 }
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation3.css-3su884-MuiPaper-root {
   padding: 0px !important;
@@ -313,7 +320,8 @@ svg.recharts-surface {
 }
 
 .piechart-parent {
-  display: flex;
+  /* display: flex !important;
+  justify-content: space-between !important; */
 }
 .piechart-parent .recharts-responsive-container {
   height: 551.333px !important;
@@ -324,7 +332,7 @@ svg.recharts-surface {
 
 .piechart-parent .piechart-div {
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-  height: 323px;
+  height: auto;
   width: 30%;
   padding: 20px;
   border-radius: 13px;
@@ -340,7 +348,8 @@ svg.recharts-surface {
 }
 
 .Dashboard-wrapper .piechart-parent {
-  display: flex;
+  display: flex !important;
+
   height: 360px;
 }
 i.fas.fa-angle-right {
@@ -363,14 +372,14 @@ button.customer-data-btn-download {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 10px;
 }
 .color-pilot-name-visitor {
   display: flex;
   justify-content: end;
   align-items: center;
-  margin-right: 15px;
+  margin-right: 8px;
 }
 .color-pilot-name-visitor .dot {
   height: 12px;
@@ -400,4 +409,9 @@ button.customer-data-btn-download {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+div#cart-header-three-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

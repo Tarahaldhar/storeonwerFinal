@@ -30,6 +30,8 @@ const DashboardCustomerData = (props) => {
     const [showHeader, setShowHeader] = useState(true)
     const location = useLocation()
     const getStoreAdminToken = useSelector(state => state?.storeAdminLogin?.storeAdmin?.access)
+    const getDateRange = useSelector(state => state?.dateRange?.dateRange)
+
     const getSalesTokenByStore = useSelector(state => state?.salesToken?.salestoken?.access)
     console.log('storeadminlogin', getStoreAdminToken);
     const [numberOfPages, setNumberOfPages] = useState(1)
@@ -52,7 +54,7 @@ const DashboardCustomerData = (props) => {
             if (getStoreAdminToken) {
                 console.log('salestoken', getStoreAdminToken);
                 axios({
-                    url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/shopping/`,
+                    url: `https://thewiseowl.pythonanywhere.com/store-owner/customers/`,
                     data: {
 
                     },
@@ -64,7 +66,7 @@ const DashboardCustomerData = (props) => {
                     console.log('salesmen', result.data);
                     setCustomerGetData(result.data)
                     setAllData(result.data)
-                    setStoreData(result.data.slice(0, 10))
+                    setStoreData(result?.data?.slice(0, 10))
                     setNumberOfPages(Math.ceil(result.data.length / 10))
                 })
             }
@@ -93,27 +95,27 @@ const DashboardCustomerData = (props) => {
     };
 
 
-    useEffect(() => {
-        if (getSalesTokenByStore) {
-            console.log('salestoken', getSalesTokenByStore);
-            axios({
-                url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/shopping/`,
-                data: {
+    // useEffect(() => {
+    //     if (getSalesTokenByStore) {
+    //         console.log('salestoken', getSalesTokenByStore);
+    //         axios({
+    //             url: `https://thewiseowl.pythonanywhere.com/api/store_owner/customer/shopping/`,
+    //             data: {
 
-                },
-                headers: {
-                    Authorization: `Bearer ${getSalesTokenByStore}`
-                },
-                method: 'get'
-            }).then((result) => {
-                console.log('salesmen', result.data.customers);
-                setCustomerGetData(result.data.customers)
-                setAllData(result.data.customers)
-                setStoreData(result.data.customers.slice(0, 4))
-                setNumberOfPages(Math.ceil(result.data.customers.length / 4))
-            })
-        }
-    }, [getSalesTokenByStore])
+    //             },
+    //             headers: {
+    //                 Authorization: `Bearer ${getSalesTokenByStore}`
+    //             },
+    //             method: 'get'
+    //         }).then((result) => {
+    //             console.log('salesmen', result.data.data);
+    //             setCustomerGetData(result.data.data)
+    //             setAllData(result.data.data)
+    //             setStoreData(result.data.data.slice(0, 4))
+    //             setNumberOfPages(Math.ceil(result.data.data.length / 4))
+    //         })
+    //     }
+    // }, [getSalesTokenByStore])
 
 
     useEffect(() => {
@@ -123,19 +125,19 @@ const DashboardCustomerData = (props) => {
 
         }
     }, [props])
-    const handler = (val) => {
-        let date = moment(val).format('YYYY-MM-DD')
-        console.log('date', date, val);
-        const data = allData.filter((value) => {
-            let date1 = moment(value.date).format('YYYY-MM-DD')
-            return moment(date).isSame(date1)
-
+    const handler = (val1, val2) => {
+        console.log('handlercall', val1, val2);
+        const date = allData.filter((val) => {
+            const day = moment(val.date)
+            if (day.isBefore(val2) && day.isAfter(val1) || day.isSame(val1) || day.isSame(val2)) {
+                return val
+            }
         })
-        setStoreData(data)
+        console.log('datafatch', date);
+        setCustomerGetData(date)
+        setStoreData(date?.slice(0, 10))
+        setNumberOfPages(Math.ceil(date?.length / 10))
     }
-
-
-
     const handleExcel = (e) => {
         const data = allData.map((val) => {
             return [val.id, val.name, val.email, val.phone_number, val.salesperson_name, val.visit_type, val.description]
@@ -148,6 +150,8 @@ const DashboardCustomerData = (props) => {
         XLSX.utils.book_append_sheet(wv, ws, 'demo')
         XLSX.writeFile(wv, 'sheet.xlsx')
     }
+
+    console.log('apidatagetDate', getDateRange);
     return (
 
         <>
@@ -176,10 +180,10 @@ const DashboardCustomerData = (props) => {
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Phone number</th>
-                                    <th>Product Choice</th>
-                                    <th>Sales Person Name</th>
-                                    <th>Description</th>
+                                    <th>Phone Number</th>
+                                    <th>Visit Type</th>
+                                    <th>Sales Representative</th>
+                                    <th>Feedback</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -5,7 +5,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import * as XLSX from 'xlsx';
 import './ViewCustomer.css';
-
 import axios from 'axios';
 import { current } from '@reduxjs/toolkit';
 import CustomerMddal from './CustomerModal';
@@ -43,9 +42,9 @@ const ViewCustomerData = () => {
             }
         }).then((result) => {
             console.log('viewcustomer', result.data);
-            setAllData(result.data)
-            setStoreData(result.data.slice(0, 10))
-            setNumberOfPages(Math.ceil(result.data.length / 10))
+            setAllData(result?.data)
+            setStoreData(result?.data?.slice(0, 10))
+            setNumberOfPages(Math.ceil(result?.data?.length / 10))
 
         }).catch((error) => {
             console.log('error', error);
@@ -58,23 +57,22 @@ const ViewCustomerData = () => {
     const handlePageClick = async (data1) => {
         console.log('click');
         console.log('pagecount3', data1.selected);
-        const data = allData.slice(data1.selected * 10, (data1.selected + 1) * 10)
+        const data = allData?.slice(data1.selected * 10, (data1.selected + 1) * 10)
         setStoreData(data)
     };
     const handleUserData = (e, index) => {
         // SetCustData(allData[index].customers)
         // console.log('alldata', allData[index]);
         console.log('e', e, index);
-        const data = allData.filter((val) => index === val.salesperson_job_id)
+        const data = allData?.filter((val) => index === val.salesperson_job_id)
         console.log('data', data[0].customers);
         SetCustData(data[0].customers)
         setShowModal(true)
         index === accordian ? setAccordian(null) : setAccordian(index)
     }
     const handleExcel = (e) => {
-        const data = CustData.map((val) => {
+        const data = CustData?.map((val) => {
             return [val.id, val.name, val.email, val.phone_number, val.salesperson_name, val.product_choice, val.description]
-
         })
         const data1 = ['Id', 'Name', 'Email', 'Phone Number', 'Sales Person Name', 'Product List', 'Description']
         data.unshift(data1)

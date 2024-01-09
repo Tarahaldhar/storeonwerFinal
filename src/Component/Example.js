@@ -1,71 +1,97 @@
-import React, { PureComponent } from 'react';
-import * as XLSX from 'xlsx';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
-const data = [
-    { name: 'Group A', value: 800 },
-    { name: 'Group B', value: 300 },
-
-];
-
-const COLORS = ['#8299DD', '#4BA3DD', '#FFBB28', '#FF8042'];
+const COLORS = ['#8299DD', '#4BA3DD'];
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, value }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-        <p x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="middle">
             {`${(percent * 100).toFixed(0)}%`}
-        </p>
+        </text>
     );
 };
-const handleExcel = () => {
 
-}
-export default class Example extends PureComponent {
+const Example = () => {
+    const [shopper, setShopper] = useState([]);
+    const getStoreAdminToken = useSelector((state) => state?.storeAdminLogin?.storeAdmin.access);
 
-    render() {
-        return (
-            <ResponsiveContainer width="100%" height="100%">
-                <div className='title-customerdata-exportbtn color-pilot-name-customer' style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: '12px', textAlign: 'left' }}>Customer vs Visitor</span>
-                    <button className='customer-data-btn-download' onClick={() => handleExcel()}>Export CVS</button>
-                </div>
-                <div className='color-pilot-name-customer'>
+    const handleShopper = () => {
+        if (getStoreAdminToken) {
+            axios({
+                url: 'https://thewiseowl.pythonanywhere.com/sales-representative-percentage-visit-count/',
+                data: {},
+                headers: {
+                    Authorization: `Bearer ${getStoreAdminToken}`,
+                },
+                method: 'get',
+            })
+                .then((result) => {
+                    console.log('shopper', result.data);
+                    setShopper([
+                        { name: 'Shopper', value: result.data.total_shopping_percentage },
+                        { name: 'Visitor', value: result.data.total_visitor_percentage },
+                    ]);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    };
 
-                    <span className="dot" ></span>&nbsp;<p style={{ fontSize: '8px', marginBottom: '0px' }}>Customer</p>
+    useEffect(() => {
+        // Fetch shopper data on component mount
+        handleShopper();
+    }, []); // Empty dependency array ensures the effect runs once on mount
 
-                </div>
-                <div className='color-pilot-name-visitor'>
-                    <span className="dot" style={{ backgroundColor: '#8AC3E9' }}></span>&nbsp;<p style={{ fontSize: '8px', marginBottom: '0px' }}>Visitor</p>
+    const handleExcel = () => {
+        // Handle Excel export logic
+    };
 
-                </div>
-                <PieChart width={100} height={100}>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        label={renderCustomizedLabel}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                    >
-                        {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+    return (
+        <ResponsiveContainer width="100%" height="100%">
+            <div className="title-customerdata-exportbtn color-pilot-name-customer" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: '12px', textAlign: 'left' }}>Shopper and Visitor</span>
+                {/* <button className="customer-data-btn-download" onClick={() => handleExcel()}>
+                    Export CVS
+                </button> */}
+            </div>
+            <div className="color-pilot-name-customer">
+                <span className="dot"></span>&nbsp;
+                <p style={{ fontSize: '8px', marginBottom: '0px' }} onClick={handleShopper}>
 
-                        ))}
+                    Shopper
+                </p>
+            </div>
+            <div className="color-pilot-name-visitor">
+                <span className="dot" style={{ backgroundColor: '#8AC3E9' }}></span>&nbsp;
+                <p style={{ fontSize: '8px', marginBottom: '0px' }}>Visitor</p>
+            </div>
+            <PieChart width={100} height={100}>
+                <Pie
+                    data={shopper}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                >
+                    {shopper.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                </Pie>
+            </PieChart>
+        </ResponsiveContainer>
+    );
+};
 
-                    </Pie>
-
-                </PieChart>
-
-
-
-            </ResponsiveContainer>
-        );
-    }
-}
+export default Example;

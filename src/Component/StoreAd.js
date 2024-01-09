@@ -35,10 +35,12 @@ const StoreAd = () => {
       method: "post"
     }).then((res) => {
       console.log('token', res?.data?.tokens);
-      toast.success("Login successfully")
+      toast.success("Login Successfully !", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       dispatch(actionCreators.masterStoreAdmin(res.data.tokens))
       dispatch(SidebarAction.sidebartype('owner'))
-      dispatch(customerName.setCustomerName(res.data.username))
+      dispatch(customerName.setCustomerName(res.data.store_name))
 
       setTimeout(() => {
         navigate('/admin')
