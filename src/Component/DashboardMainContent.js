@@ -6,6 +6,7 @@ import ReactPaginate from 'react-paginate';
 import DashboardCustomerData from './DashboardCustomerData';
 import Example from './Example';
 import DashboardVisitorData from './DashboardVisitorData';
+import SimpleLineChart from './SimpleLineChart';
 
 const DashboardMainContent = () => {
 
@@ -37,8 +38,8 @@ const DashboardMainContent = () => {
                 <div class="dashboard-charts-wrapper">
                     <div class="top-section">
                         <div class="title" style={{ textAlign: 'left', margin: '10px', paddingTop: '15px' }}>
-                            <h5 class="mb-0" style={{ fontSize: '18px' }}>Customer Habits</h5>
-                            <p class="text-gray" style={{ fontSize: '12px' }}>Track your Customer behavior</p>
+                            <h5 class="mb-0" style={{ fontSize: '18px' }}>Customer Count</h5>
+                            <p class="text-gray" style={{ fontSize: '12px' }}>Track your Monthly Customer Footfall</p>
                         </div>
                     </div>
                     <div class="cart-wrapper">
@@ -48,13 +49,16 @@ const DashboardMainContent = () => {
                 </div>
                 <br />
                 {/*--------------all customer data--------  */}
+                <h5 style={{ textAlign: 'left', paddingLeft: '10px', padding: '10px', marginTop: '20px', marginLeft: '20px' }}>Sales Performance</h5>
                 <div className='piechart-parent'>
-                    <div className='customer-data'>
-                        <DashboardCustomerData showHeader={true} />
+
+                    <div className='dashboard-charts-wrapper'>
+                        {/* <DashboardCustomerData showHeader={true} /> */}
+                        <SimpleLineChart />
                     </div>
 
                     <div className='piechart-div'>
-                        <p style={{ fontWeight: '600', marginBottom: '0px' }}>Customer Growth</p>
+                        <p style={{ fontWeight: '600', marginBottom: '0px' }}>Customer Count</p>
 
                         <Example />
                     </div>
@@ -63,7 +67,7 @@ const DashboardMainContent = () => {
                 <br />
                 {/* -------------All Visitor Data----------- */}
 
-                <DashboardVisitorData />
+                {/* <DashboardVisitorData /> */}
 
                 {/* -------------all visitor data---------- */}
 

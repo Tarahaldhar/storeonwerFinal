@@ -8,8 +8,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators } from '../Store/SidebarComponent/SidebarAction';
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoIosArrowForward } from "react-icons/io";
-
-
+import { DateRange } from 'react-date-range';
+import moment from 'moment';
+import "rsuite/dist/rsuite.css";
+import { DateRangePicker } from 'rsuite';
+import { actionCreators as dateAction } from '../Store/DateRange/DateRangeAction';
 
 function CustomInput({ value, onClick }) {
     return (
@@ -27,6 +30,13 @@ function CustomInput({ value, onClick }) {
 }
 
 const DashbaordHeader = (props) => {
+    const [state, setState] = useState([
+        {
+            startDate: new Date(),
+            endDate: null,
+            key: 'selection'
+        }
+    ]);
     const dispatch = useDispatch()
     const salesPersonName = useSelector(state => state.salesToken.customerName)
 
@@ -37,7 +47,12 @@ const DashbaordHeader = (props) => {
 
     const handleDate = (date) => {
         setDate(date)
-        props.fun(date)
+        const date1 = moment(date[0]).format('yyyy-MM-D')
+        const date2 = moment(date[1]).format('yyyy-MM-D')
+        console.log('daterange', date1, date2);
+        props.fun(date1, date2)
+        dateAction.dateRangeFilter({ date1, date2 })
+
     }
     const handleData = () => {
         dispatch(actionCreators.SidebarToggle(!getToggleSidebar))
@@ -55,11 +70,14 @@ const DashbaordHeader = (props) => {
                                 <li><Link to="/admin">Admin</Link></li>
                             </ul>
                         </div>
-                        <h4 class="page-title mb-0">Admin Dashboard</h4>
+                        <h4 className="page-title mb-0">Admin Dashboard</h4>
                     </div>
-                    <div class="top-right ">
+                    <div className="top-right" style={{ textAlign: 'center' }}>
                         {/* -------------search filter date header---------------------- */}
-                        {(window.location.pathname === '/customer-data') && <label><DatePicker selected={selectedDate} onChange={date => handleDate(date)} customInput={<CustomInput />} /></label>}
+                        {(window.location.pathname === '/customer-data') && <label><DateRangePicker selected={selectedDate}
+                            onOk={date => handleDate(date)} customInput={<CustomInput />}
+                            appearance="default" placeholder="Default" style={{ width: 230 }} /></label>}
+
                         {/* -------------------search filter date header end--------------------- */}
                         {/* <div class="date-picker-wrap">December 2023</div> */}
 

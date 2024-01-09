@@ -6,6 +6,8 @@ import { actionCreators as salesToken } from '../Store/SalesAuthToken/StoreAdmin
 import { actionCreators as adminToken } from '../Store/StoreAdminAuth/StoreAdminAction';
 
 const Sidebar = (props) => {
+  const salesPersonName = useSelector(state => state.salesToken.customerName)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [showSalesModal, setShowSalesModal] = useState(false)
@@ -31,6 +33,7 @@ const Sidebar = (props) => {
   const handleAddSales = () => {
 
   }
+
   return (
     <>
       {/* <!-- Dashbaord left Sidebar section   --> */}
@@ -56,58 +59,58 @@ const Sidebar = (props) => {
                 >
                   <i class="bi bi-people-fill"></i> &nbsp; <span class="list">People</span>
                 </a>
-                {sidebarType === 'owner' ?
-                  <ul className="collapse list-unstyled pt-2 pl-2" id="homeSubmenu">
-                    <li>
-                      <li>
-                        <Link to="/sales-register" onClick={() => handleAddSales()}><i class="fa-solid fa-plus"></i>&nbsp;<span class="list">Add sales candidate</span></Link>
-                      </li>
-                      <li>
-                        <Link to="/customer-data"><i class="fa-solid fa-eye"></i>&nbsp;<span class="list">View customer</span></Link>
-                      </li>
 
-                      {/* <li>
-                        <Link to="/customer-register"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;<span class="list">Add Customer</span></Link>
-                      </li> */}
+                <ul className="collapse list-unstyled pt-2 pl-2" id="homeSubmenu">
+                  <li>
+                    {/* <li>
+                      <Link to="/sales-register" onClick={() => handleAddSales()}><i class="fa-solid fa-plus"></i>&nbsp;<span class="list">Add sales candidate</span></Link>
+                    </li> */}
+                    <li>
                       <Link to="/sales-data">
-                        <RiPresentationFill />&nbsp;<span class="list"> Sales Represntive</span>
+                        <RiPresentationFill />&nbsp;<span class="list"> Sales Representative</span>
                       </Link>
                     </li>
-
-                  </ul> :
-                  <ul className="collapse list-unstyled pt-2 pl-2" id="homeSubmenu">
                     <li>
-                      <li>
-                        <Link to="/customer-register"><i class="fa-solid fa-plus"></i>&nbsp;<span class="list">Add customer</span></Link>
-                      </li>
-                      {/* <li>
-                    <Link to="/sales-login"><i className="fa-solid fa-arrow-right"></i>&nbsp;<span class="list">Sales Login</span></Link>
-                  </li> */}
-
-                      <li>
-                        <Link to="/customer-data"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;<span class="list">View customer</span></Link>
-                      </li>
-
+                      <Link to="/customer-data"><i class="fa-solid fa-eye"></i>&nbsp;<span class="list">View customer</span></Link>
                     </li>
 
-                  </ul>}
+                    {/* <li>
+                        <Link to="/customer-register"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;<span class="list">Add Customer</span></Link>
+                      </li> */}
+
+                  </li>
+
+                </ul>
+                {/* <ul className="collapse list-unstyled pt-2 pl-2" id="homeSubmenu">
+                  <li>
+                    <li>
+                      <Link to="/customer-register"><i class="fa-solid fa-plus"></i>&nbsp;<span class="list">Add customer</span></Link>
+                    </li>
+
+                    <li>
+                      <Link to="/customer-data"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;<span class="list">View customer</span></Link>
+                    </li>
+
+                  </li>
+
+                </ul> */}
               </li>
-              <li>
+              {/* <li>
                 <a href="#">
                   <i class="bi bi-bar-chart"></i>&nbsp; <span class="list">Charts</span>
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="#">
                   <i class="bi bi-journal-text"></i>&nbsp;  <span class="list">Task Board</span>
 
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="#">
                   <i class="bi bi-chat-dots"></i>&nbsp;<span class="list">Support</span>
                 </a>
-              </li>
+              </li> */}
             </ul>
           </menu>
         </div>
@@ -115,8 +118,9 @@ const Sidebar = (props) => {
 
         <div class="sidebar-bottom">
           <div className='owlimg'>
-            <ul style={{ paddingLeft: '0px !important' }}><p style={{ fontSize: '14px', position: 'relative', top: '38px' }}> Hi, User</p>
-              <img className="message-sidebar" src='img/Message.png' style={{ width: '150px', height: 'auto' }} /></ul>
+            <ul style={{ paddingLeft: '0px !important' }}><p style={{ fontSize: '14px', position: 'relative', top: '38px' }}> Hi, {salesPersonName}</p>
+              <img className="message-sidebar" src='img/Message.png' style={{ width: '150px', height: 'auto' }} />
+            </ul>
             <img src='img/OWL.png' style={{ height: 'auto' }} />
           </div>
           <img src="images/sidebar-main-img.png" alt="" class="img-fluid" />
